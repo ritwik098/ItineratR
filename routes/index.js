@@ -3,8 +3,33 @@ var path = require('path');
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
+var iataDatabase = require('./iata.js').iataDatabase;
 
-router.get('/sendTravelInformation',function(req,res,next) {
+/* GET home page. */
+router.get('/', function(req, res, next) {
+	/*
+	var body = {
+ 		location: 'WAS',
+ 		check_in : '2017-03-15',
+ 		check_out : '2017-03-19',
+ 		radius : '50',
+ 		number_of_results : '3',
+ 		show_sold_out : true
+ 	};
+    amadeus.hotelSearch(body,(err,data)=>{
+  		console.log(data);
+  	});
+
+    google.getPointsOfInterest({cityName: "Paris"}, (err,body)=>{
+    	console.log("POINTS OF INTEREST: \n");
+    	console.log(body);
+    });
+	*/
+	
+	
+});
+
+router.post('/sendTravelInformation',function(req,res,next){
 	var finalListOfPlaces = [];
 	var prop = {
 		origin : "BOS",
@@ -28,8 +53,19 @@ router.get('/sendTravelInformation',function(req,res,next) {
 			
 			var minHotelCost = 80*prop.duration;
 			if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100)> (prop.max_price - data.results[i].price + 96*prop.duration)){
-				finalListOfPlaces.push(data.results[i]);
-				console.log(data.results[i]);
+				var json = data.results[i];
+				console.log(data.results[i].destination);
+				iataDatabase.forEach(function(val,index,arr){
+
+				})
+					json.city = info.city;
+					json.country = info.country;
+					finalListOfPlaces.push(json);
+					console.log(json);
+				
+				
+
+				
 			}
 			
 		});
