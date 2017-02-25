@@ -56,16 +56,12 @@ router.post('/sendTravelInformation',function(req,res,next){
 				var json = data.results[i];
 				console.log(data.results[i].destination);
 				iataDatabase.forEach(function(val,index,arr){
-
+					
 				})
 					json.city = info.city;
 					json.country = info.country;
 					finalListOfPlaces.push(json);
 					console.log(json);
-				
-				
-
-				
 			}
 			
 		});
