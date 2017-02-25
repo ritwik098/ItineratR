@@ -1,3 +1,8 @@
+/*
+ * This file serves as an interface between our code and the api calls for
+ * the Amadeus travel data
+ */
+
 var request = require('request');
 var http = require('http');
 
