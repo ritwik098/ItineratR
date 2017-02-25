@@ -44,8 +44,18 @@ function getPointsOfInterest(properties,cb) {
 	});
 }
 
+function getResturaunts(properties, cb) {
+	var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+	properties.key = googleMapsKey;
+	properties.type = 'restaurant';
+	request({ url: url, qs: properties, json: true }, function(err, response, body) {
+		cb(err, body);
+	});
+}
+
 module.exports = {
   getPointsOfInterest : getPointsOfInterest,
   getCoordinatesOfCity : getCoordinatesOfCity,
-  getCoordinates: getCoordinates
+  getCoordinates: getCoordinates,
+  getResturaunts: getResturaunts
 }

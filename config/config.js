@@ -3,7 +3,7 @@ module.exports = {
   googleMapsKey: 'AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
   sitaAirportKey: '***REMOVED***',
   googlePlacesKey: 'AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
-  mongoConnection: '***REMOVED***'
+  mongoConnection: '***REMOVED***',
   yelp: {
     consumerKey: '***REMOVED***',
     consumerSecret: '***REMOVED***',
