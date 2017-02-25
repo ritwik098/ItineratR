@@ -3,10 +3,17 @@ var http = require('http');
 
 var amadeusKey = require('../config/config.js').amadeusKey;
 
-function flightSearch(properties) {
+/*
+ * Pass in query parameters as the first parameter
+ * Callback takes an error and a body as arguments
+ */
+function flightSearch(properties, cb) {
   var url = 'https://api.sandbox.amadeus.com/v1.2/flights/inspiration-search';
-  //request({url: url, })
-  return {}
+  properties.apikey = amadeusKey;
+  request({ url: url, qs: properties }, function(err, response, body) {
+    var b = JSON.parse(body);
+    cb(err, b);
+  });
 }
 
 function hotelSearch(){
@@ -42,5 +49,5 @@ function hotelSearch(){
 }
 
 module.exports = {
-
+  flightSearch: flightSearch
 }
