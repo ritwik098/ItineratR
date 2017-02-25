@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
@@ -69,6 +70,11 @@ router.post('/sendTravelInformation',function(req,res,next){
 			
 		});
 	});
+});
+
+/* GET home page. */
+router.get('*', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
 module.exports = router;
