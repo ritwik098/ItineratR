@@ -16,38 +16,26 @@ function flightSearch(properties, cb) {
   });
 }
 
-function hotelSearch(){
+function hotelSearch(properties, cb){
 	
- 		var bod = {
- 		   'apikey' : amadeusKey,
- 		   'location': 'ORD',
- 		   'check_in' : '2016-11-15',
- 		   'check_out' : '2016-11-16',
- 		   'radius' : '42'
+ 		var body = {
+ 		   apikey : amadeusKey,
+ 		   location: 'ORD',
+ 		   check_in : '2017-03-15',
+ 		   check_out : '2017-03-19',
+ 		   radius : '42',
+ 		   number_of_results : '10'
  		};
  
- 
- 		var options = {
- 		  host: 'api.sandbox.amadeus.com',
- 		  path: '/v1.2/hotels/search-circle',
- 		  method: 'GET',
- 		  body : bod
- 		};
- 		
- 		var REQ = http.request(options, function(res,error) {
- 
- 		  if(error){
- 		  	console.log(error);
- 		  }
- 		  console.log('STATUS: ' + res.statusCode);
- 		  res.setEncoding('utf8');
- 		  res.on('data', function (chunk) {
- 		    console.log('BODY: ' + chunk);
- 		  });
- 		});
- 		REQ.end();
+ 		var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport'
+ 		request({ url: url, qs: body }, function(err, response, body) {
+		    var b = JSON.parse(body);
+		    console.log(body);
+		    cb(err,b);
+		});
 }
 
 module.exports = {
-  flightSearch: flightSearch
+  flightSearch: flightSearch,
+  hotelSearch : hotelSearch
 }
