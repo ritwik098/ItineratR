@@ -8,7 +8,7 @@
             </div>
         </md-toolbar>
         <md-content class="transparent">
-            <form name="searchForm">
+            <form name="searchForm" ng-submit="submit()">
             <div layout="column" layout-align="center center" class="hero_container">
                 <div class="hero_text">
                     <h1>ITINERATR GETS YOU THE ESCAPE YOU <strong>DESERVE</strong></h1>
@@ -22,7 +22,7 @@
                                 <md-icon>
                                     <i class="material-icons">attach_money</i>
                                 </md-icon>
-                                <input ng-model="budget" type="number" step="10" placeholder="500" required>
+                                <input ng-model="homeCtrl.budget" type="number" step="10" placeholder="500" required>
                                 <md-icon>
                                 </md-icon>
                             </md-input-container>
@@ -33,7 +33,7 @@
                                 <md-icon>
                                     <i class="material-icons">location_on</i>
                                 </md-icon>
-                                <input ng-model="chosenPlace" placeholder="Chicago, IL, United States" googleplace required/>
+                                <input ng-model="homeCtrl.chosenPlace" placeholder="Chicago, IL, United States" googleplace required/>
                                 <md-icon>
                                 </md-icon>
                             </md-input-container>
@@ -53,7 +53,7 @@
                     </md-content>
                 </div>
                 <div class="hero_button_container">
-                          <md-button class="md-raised md-primary hero_button">Take me to places!</md-button>
+                          <md-button class="md-raised md-primary hero_button" ng-click="homeCtrl.submit()">Take me to places!</md-button>
                 </div>
             </div>
             </form>

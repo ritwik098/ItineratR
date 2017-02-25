@@ -16,10 +16,42 @@
 	    });
 	})
 
-    .controller("HomeCtrl", function($scope, $location) {
+    .controller("HomeCtrl", function($scope, $rootScope, $location, $http) {
     	this.minDate = new Date();
     	this.budget = 500;
+    	this.lat;
+    	this.lon;
+    	$scope.$on('lat', function(response) {
+			this.lat = response;
+		});
+		$scope.$on('lon', function(response) {
+			this.lon = response;
+		});
   		$scope.gPlace;
+  		this.submit = function(){
+  			console.log("budget: "+this.budget);
+  			console.log($rootScope.details);
+  			$http({
+			  method: 'GET',
+			  url: 'http://iatageo.com/getCode/'+$rootScope.details[3]+'/'+$rootScope.details[4]
+			}).then(function successCallback(response) {
+				   console.log(response);
+				   var iata = response.data.IATA;
+				   console.log(iata);
+
+				   $http({
+					  method: 'GET',
+					  url: '/api/sendTravelInformation'
+					}).then(function successCallback(response) {
+						   
+					}, function errorCallback(response) {
+
+					});
+
+			  }, function errorCallback(response) {
+			   		console.log(response);
+			  });
+  		};
 	})
 
 	.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
@@ -72,7 +104,7 @@
                 addressComponents.push(latitude, longitude);
 
                 scope.$apply(function() {
-                    scope.details = addressComponents; // array containing each location component
+                    scope.$root.details = addressComponents; // array containing each location component
                     model.$setViewValue(element.val());
                 });
             });

@@ -75,3 +75,23 @@ strong{
 	width: 100%;
     text-align: center;
 }
+
+input[google-place]::-webkit-input-placeholder {
+    opacity: 0;
+}
+
+input[google-place]:-moz-placeholder {
+    /* Firefox 18- */
+
+    opacity: 0;
+}
+
+input[google-place]::-moz-placeholder {
+    /* Firefox 19+ */
+
+    opacity: 0;
+}
+
+input[google-place]:-ms-input-placeholder {
+    opacity: 0;
+}
