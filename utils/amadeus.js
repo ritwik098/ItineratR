@@ -21,16 +21,13 @@ function flightSearch(properties, cb) {
   });
 }
 
-function hotelSearch(properties, cb){
-	
- 		
- 		properties.apikey = amadeusKey;
- 		var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport'
- 		request({ url: url, qs: properties }, function(err, response, body) {
-		    var b = JSON.parse(body);
-		    console.log(b);
-		    cb(err,b);
-		});
+function hotelSearch(properties, cb) {
+    properties.apikey = amadeusKey;
+    var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-circle'
+    request({ url: url, qs: properties, json: true }, function(err, response, body) {
+      console.log(b);
+      cb(err,b);
+    });
 }
 
 module.exports = {
