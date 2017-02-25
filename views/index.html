@@ -1,0 +1,139 @@
+<html ng-app="myapp">
+<!--
+<head>
+    <title>Itineratr</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" type="text/css">
+    Material Design icon font
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="stylesheets/style.css" rel="stylesheet" />
+
+</head>
+<body ng-controller="HomeIndexCtrl as homeCtrl">
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+	  <header class="mdl-layout__header mdl-layout__header--transparent">
+	    <div class="mdl-layout__header-row">
+	      <span class="mdl-layout-title">Itineratr</span>
+	      <div class="mdl-layout-spacer"></div>
+	      <nav class="mdl-navigation">
+	        <a class="mdl-navigation__link" href="">Link</a>
+	        <a class="mdl-navigation__link" href="">Link</a>
+	        <a class="mdl-navigation__link" href="">Link</a>
+	        <a class="mdl-navigation__link" href="">Link</a>
+	      </nav>
+	    </div>
+	  </header>
+	  <div class="mdl-layout__drawer">
+	    <span class="mdl-layout-title">Title</span>
+	    <nav class="mdl-navigation">
+	      <a class="mdl-navigation__link" href="">Link</a>
+	      <a class="mdl-navigation__link" href="">Link</a>
+	      <a class="mdl-navigation__link" href="">Link</a>
+	      <a class="mdl-navigation__link" href="">Link</a>
+	    </nav>
+	  </div>
+	  <main class="mdl-layout__content">
+	    <div class="mdl-grid home-grid">
+			<div class="home mdl-cell mdl-cell--middle">
+				<h3>Itineratr gets you the escape you deserve, at a price you can afford.</h3>
+			</div>
+		</div>
+	  </main>
+	</div>
+	
+</body>
+	<script type="text/javascript">
+	Array.prototype.forEach.call(document.querySelectorAll('.mdl-card__media'), function(el) {
+	      var link = el.querySelector('a');
+	      if(!link) {
+	        return;
+	      }
+	      var target = link.getAttribute('href');
+	      if(!target) {
+	        return;
+	      }
+	      el.addEventListener('click', function() {
+	        location.href = target;
+	      });
+	    });
+	    </script>
+-->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+  <link href="stylesheets/style.css" rel="stylesheet" />
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
+</head>
+	<body ng-app="myapp" ng-cloak >
+		
+		<div layout="column" layout-fill class="demo-layout-transparent" ng-controller="HomeCtrl as homeCtrl">
+		  <md-toolbar class="md-hue-2 transparent">
+		      <div class="md-toolbar-tools">
+		        <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+					<i class="material-icons" style="color: #f0f0f0">menu</i>
+		        </md-button>
+
+		        <h2 flex="" md-truncate="">Itineratr</h2>
+
+		      </div>
+		  </md-toolbar>
+		  <md-content class="transparent">
+			<div layout="column" layout-align="space-between center">
+
+				<div class="hero_text"><h1>ITINERATR GETS YOU THE ESCAPE YOU <strong>DESERVE</strong></h1></div>
+				<div class="hero_text"><h1>AT A PRICE YOU CAN <strong>AFFORD</strong></h1></div>
+				<div>
+					  <md-content flex layout-padding layout="row" layout-align="center center">
+					  	<div>
+							 <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm >
+						      <label>Budget</label>
+		 						<md-icon>
+						      						<i class="material-icons">attach_money</i>
+						      </md-icon>				      <input type="number" step="10" value="500">
+						     <md-icon>
+						      </md-icon>
+						    </md-input-container>
+					    </div>
+					    <div>
+						    <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm >
+						      <label>Departing</label>
+		 						<md-icon>
+						      						<i class="material-icons">location_on</i>
+						      </md-icon>				      
+					    	    <input ng-model="chosenPlace" placeholder="" googleplace/>
+						     <md-icon>
+						      </md-icon>
+						    </md-input-container>
+
+					    </div>
+					    <div>
+					    	<md-datepicker ng-model="homeCtrl.startDate" md-placeholder="Enter date" md-min-date="homeCtrl.minDate"></md-datepicker>
+					    </div>
+					   </md-content>
+				</div>
+			  </div>		  
+		  </md-content>
+		</div>
+	<!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="app/app.js"></script>
+</body>
+</html>
