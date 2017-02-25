@@ -3,7 +3,7 @@ var path = require('path');
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
-var iataDatabase = require('./iata.js').iataDatabase;
+var iataDatabase = require('../utils/iata.js').iataDatabase;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
