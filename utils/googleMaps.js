@@ -20,9 +20,10 @@ function getCoordinatesOfCity(airportName,cb){
 
 function getPointsOfInterest(properties,cb){
 	
-	var url = 
+	var url = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 	var qr = {
-		query : "points of interest in "+properties.cityName;
+		query : "points of interest in "+properties.cityName,
+		key : googleMapsKey
 	}
 	request({ url: url, qs: qr }, function(err, response, body) {
 	    console.log(body);
@@ -30,4 +31,9 @@ function getPointsOfInterest(properties,cb){
 	    cb(err,body);
 	});
 	
+}
+
+module.exports = {
+  getPointsOfInterest : getPointsOfInterest,
+  getCoordinatesOfCity : getCoordinatesOfCity
 }
