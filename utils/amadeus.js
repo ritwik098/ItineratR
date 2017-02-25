@@ -18,17 +18,10 @@ function flightSearch(properties, cb) {
 
 function hotelSearch(properties, cb){
 	
- 		var body = {
- 		   apikey : amadeusKey,
- 		   location: 'ORD',
- 		   check_in : '2017-03-15',
- 		   check_out : '2017-03-19',
- 		   radius : '42',
- 		   number_of_results : '10'
- 		};
- 
+ 		
+ 		properties.apikey = amadeusKey;
  		var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport'
- 		request({ url: url, qs: body }, function(err, response, body) {
+ 		request({ url: url, qs: properties }, function(err, response, body) {
 		    var b = JSON.parse(body);
 		    console.log(body);
 		    cb(err,b);
