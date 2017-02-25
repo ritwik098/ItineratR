@@ -11,8 +11,8 @@ function flightSearch(properties, cb) {
   var url = 'https://api.sandbox.amadeus.com/v1.2/flights/inspiration-search';
   properties.apikey = amadeusKey;
   request({ url: url, qs: properties }, function(err, response, body) {
-
-    cb(err, body);
+  	var b = JSON.parse(body);
+    cb(err, b);
   });
 }
 
@@ -22,9 +22,9 @@ function hotelSearch(properties, cb){
  		properties.apikey = amadeusKey;
  		var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport'
  		request({ url: url, qs: properties }, function(err, response, body) {
-		    
-		    console.log(body);
-		    cb(err,body);
+		    var b = JSON.parse(body);
+		    console.log(b);
+		    cb(err,b);
 		});
 }
 
