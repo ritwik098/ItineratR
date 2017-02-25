@@ -23,6 +23,10 @@ strong{
 	font-size: 1.5em;
 }
 
+.hero_date{
+	margin-bottom: -10px;
+}
+
 .demo-layout-transparent {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/bg.jpg') center / cover;
 
@@ -33,6 +37,8 @@ strong{
      your background is light. */
   color: white;
 }
+
+.md-errors-spacer:empty { display: none; }
 
 .toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
   color: white; }
