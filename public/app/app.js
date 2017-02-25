@@ -1,16 +1,24 @@
 (function() {
-    angular.module('myapp', ['ngMaterial'])
-    .config(function($mdThemingProvider) {
+    angular.module('myapp', ['ngRoute','ngMaterial'])
+    .config(function($mdThemingProvider,$routeProvider) {
 	  $mdThemingProvider.theme('default')
 	    .primaryPalette('light-blue');
 
 	  $mdThemingProvider.theme('altTheme')
 	  	.dark()
 	  	.primaryPalette('light-blue');
+	  $routeProvider
+	    .when("/", {
+	        templateUrl : "index.html"
+	    })
+	    .when("/places", {
+	        templateUrl : "places.html"
+	    });
 	})
 
     .controller("HomeCtrl", function($scope, $location) {
     	this.minDate = new Date();
+    	this.budget = 500;
   		$scope.gPlace;
 	})
 

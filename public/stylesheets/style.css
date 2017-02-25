@@ -15,8 +15,18 @@ strong{
 	font-family: 'Nexa Bold', Helvetica, Arial, sans-serif;
 }
 
+.hero_container{
+	height: 80%;
+}
+
 .hero_text{
 	color: #f0f0f0;
+	text-align: center;
+	margin-top: -2em;
+}
+
+.hero_inputs_box{
+	margin-top: 2em;
 }
 
 .hero_input{
@@ -25,6 +35,16 @@ strong{
 
 .hero_date{
 	margin-bottom: -10px;
+}
+
+.hero_button_container{
+	margin-top: 2em;
+}
+
+.hero_button{
+	padding: 0.5em 2em;
+	color: #f0f0f0 !important;
+	font-size: 1.2em;
 }
 
 .demo-layout-transparent {
