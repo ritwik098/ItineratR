@@ -5,30 +5,6 @@ var google = require('../utils/googleMaps.js');
 var router = express.Router();
 var iataDatabase = require('../utils/iata.js').iataDatabase;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	/*
-	var body = {
- 		location: 'WAS',
- 		check_in : '2017-03-15',
- 		check_out : '2017-03-19',
- 		radius : '50',
- 		number_of_results : '3',
- 		show_sold_out : true
- 	};
-    amadeus.hotelSearch(body,(err,data)=>{
-  		console.log(data);
-  	});
-
-    google.getPointsOfInterest({cityName: "Paris"}, (err,body)=>{
-    	console.log("POINTS OF INTEREST: \n");
-    	console.log(body);
-    });
-	*/
-	
-	
-});
-
 router.post('/sendTravelInformation',function(req,res,next){
 	var finalListOfPlaces = [];
 	var prop = {
