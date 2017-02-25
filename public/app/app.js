@@ -9,7 +9,7 @@
 	  	.primaryPalette('light-blue');
 	  $routeProvider
 	    .when("/", {
-	        templateUrl : "index.html"
+	        templateUrl : "main.html"
 	    })
 	    .when("/places", {
 	        templateUrl : "places.html"
