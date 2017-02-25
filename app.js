@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var connection = 'mongodb://dbadmin:dbpassword@ds117859.mlab.com:17859/boilermake';
+var config = require('./config/config');
+
+var connection = config.mongoConnection;
 if (process.env.NODE_ENV === 'development') {
   console.log("Connecting to local database...");
   connection = 'mongodb://localhost/bm';
