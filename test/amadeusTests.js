@@ -13,7 +13,6 @@ describe('Amadeus API functions', function() {
     amadeus.flightSearch({
       origin: 'CHI'
     }, function(err, body) {
-      console.log(body);
       body.should.be.a('object');
       body.should.have.property('origin');
       body.origin.should.equal('CHI');
