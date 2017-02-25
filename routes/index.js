@@ -1,33 +1,11 @@
 var express = require('express');
+var path = require('path');
+<<<<<<< HEAD
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	/*
-	var body = {
- 		location: 'WAS',
- 		check_in : '2017-03-15',
- 		check_out : '2017-03-19',
- 		radius : '50',
- 		number_of_results : '3',
- 		show_sold_out : true
- 	};
-    amadeus.hotelSearch(body,(err,data)=>{
-  		console.log(data);
-  	});
-
-    google.getPointsOfInterest({cityName: "Paris"}, (err,body)=>{
-    	console.log("POINTS OF INTEREST: \n");
-    	console.log(body);
-    });
-	*/
-	
-	
-});
-
-router.get('/sendTravelInformation',function(req,res,next){
+router.get('/sendTravelInformation',function(req,res,next) {
 	var finalListOfPlaces = [];
 	var prop = {
 		origin : "BOS",
@@ -57,6 +35,11 @@ router.get('/sendTravelInformation',function(req,res,next){
 			
 		});
 	});
+});
+
+/* GET home page. */
+router.get('*', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
 module.exports = router;

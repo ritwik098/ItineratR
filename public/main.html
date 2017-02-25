@@ -1,0 +1,61 @@
+<div layout="column" layout-fill class="demo-layout-transparent" ng-controller="HomeCtrl as homeCtrl">
+        <md-toolbar class="md-hue-2 transparent">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                    <i class="material-icons" style="color: #f0f0f0">menu</i>
+                </md-button>
+                <h2 flex="" md-truncate="">Itineratr</h2>
+            </div>
+        </md-toolbar>
+        <md-content class="transparent">
+            <form name="searchForm">
+            <div layout="column" layout-align="center center" class="hero_container">
+                <div class="hero_text">
+                    <h1>ITINERATR GETS YOU THE ESCAPE YOU <strong>DESERVE</strong></h1>
+                    <h1>AT A PRICE YOU CAN <strong>AFFORD</strong></h1>
+                </div>
+                <div class="hero_inputs_box">
+                    <md-content flex layout-padding layout="row" layout-align="center center" div class="md-inline-form">
+                        <div>
+                            <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm>
+                                <label>Budget</label>
+                                <md-icon>
+                                    <i class="material-icons">attach_money</i>
+                                </md-icon>
+                                <input ng-model="budget" type="number" step="10" placeholder="500" required>
+                                <md-icon>
+                                </md-icon>
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm>
+                                <label>Departing</label>
+                                <md-icon>
+                                    <i class="material-icons">location_on</i>
+                                </md-icon>
+                                <input ng-model="chosenPlace" placeholder="Chicago, IL, United States" googleplace required/>
+                                <md-icon>
+                                </md-icon>
+                            </md-input-container>
+                        </div>
+                        <div class="hero_date">
+                            <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm>
+                                <label>Enter Dates</label>
+                                <md-datepicker ng-model="homeCtrl.startDate" md-placeholder="Start" md-min-date="homeCtrl.minDate">
+                                </md-datepicker>
+                            </md-input-container>
+                        </div>
+                        <div class="hero_date">
+                            <md-input-container class="md-icon-float md-icon-right md-block " flex-gt-sm>
+                                <md-datepicker ng-model="homeCtrl.endDate" md-placeholder="End" md-min-date="homeCtrl.minDate"></md-datepicker>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </div>
+                <div class="hero_button_container">
+                          <md-button class="md-raised md-primary hero_button">Take me to places!</md-button>
+                </div>
+            </div>
+            </form>
+        </md-content>
+    </div>
