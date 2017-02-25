@@ -10,6 +10,8 @@ var yelp = new Yelp({
 });
 
 function getResturaunts(props, cb) {
+  props.limit = 10;
+  props.sort = 2;
   yelp.search(props, cb);
 }
 

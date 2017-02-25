@@ -5,6 +5,7 @@ var should = chai.should();
 
 var amadeus = require('../utils/amadeus');
 var gmaps = require('../utils/googleMaps');
+var yelp = require('../utils/yelp');
 
 chai.use(chaiHttp);
 
@@ -48,6 +49,17 @@ describe('Google Places API functions', function() {
     gmaps.getCoordinates('fdksal;feioafkld;ska', function(err, coords) {
       err.should.be.a('object');
       err.message.should.equal('Location not found');
+      done();
+    });
+  });
+
+  it('should get yelp recommendations', function(done) {
+    this.timeout(5000);
+    yelp.getResturaunts({
+      term: 'Lunch',
+      location: 'New York City'
+    }, function(err, body) {
+      console.log(body);
       done();
     });
   });
