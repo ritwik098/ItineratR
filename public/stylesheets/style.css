@@ -1,8 +1,51 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #f0f0f0;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1{
+	font-family: 'Nexa Light', Helvetica, Arial, sans-serif;
+}
+
+strong{
+	font-family: 'Nexa Bold', Helvetica, Arial, sans-serif;
+}
+
+.hero_text{
+	color: #f0f0f0;
+}
+
+.hero_input{
+	font-size: 1.5em;
+}
+
+.demo-layout-transparent {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../bg.jpg') center / cover;
+
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
+  color: white; }
+
+.transparent{
+	background-color: transparent !important;
+}
+
+.home-grid{
+	max-width: 900px;
+}
+
+.home{
+	width: 100%;
+    text-align: center;
 }
