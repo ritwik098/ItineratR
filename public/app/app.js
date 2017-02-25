@@ -1,6 +1,6 @@
 (function() {
     angular.module('myapp', ['ngRoute','ngMaterial'])
-    .config(function($mdThemingProvider,$routeProvider) {
+    .config(function($mdThemingProvider,$routeProvider,$locationProvider) {
 	  $mdThemingProvider.theme('default')
 	    .primaryPalette('light-blue');
 
@@ -14,6 +14,8 @@
 	    .when("/places", {
 	        templateUrl : "places.html"
 	    });
+	  $locationProvider.html5Mode(true);
+
 	})
 
     .controller("HomeCtrl", function($scope, $rootScope, $location, $http) {
