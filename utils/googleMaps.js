@@ -14,12 +14,10 @@ function getCoordinatesOfCity(airportName,cb){
 	    	lng : body.airports[0].lng 
 	    }
 	    cb(err,res);
-
 	});
 }
 
 function getPointsOfInterest(properties,cb){
-	
 	var url = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 	var qr = {
 		query : "points of interest in "+properties.cityName,
@@ -30,7 +28,6 @@ function getPointsOfInterest(properties,cb){
 	    
 	    cb(err,body);
 	});
-	
 }
 
 module.exports = {
