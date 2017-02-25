@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-<<<<<<< HEAD
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
