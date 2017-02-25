@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var connection = '***REMOVED***';
+var config = require('./config/config');
+
+var connection = config.mongoConnection;
 if (process.env.NODE_ENV === 'development') {
   console.log("Connecting to local database...");
   connection = 'mongodb://localhost/bm';
