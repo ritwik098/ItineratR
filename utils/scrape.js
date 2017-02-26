@@ -31,4 +31,4 @@ var google = require('./googleMaps.js')
       }
     });
 
-    console.log(google.calculateDistance({lat:"-45",lng:"71"},{lat:"40",lng:"-88"}));
+    
