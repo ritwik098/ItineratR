@@ -5,7 +5,7 @@
             <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                 <i class="material-icons" style="color: #f0f0f0">menu</i>
             </md-button>
-            <h2 flex="" md-truncate="">ITINERATR</h2>
+            <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
         </div>
     </md-toolbar>
     <div layout="row" layout-fill layout-align="space_around start">
@@ -101,12 +101,17 @@
 
                 <md-card-content>
                     <div class="it_details" layout="row" layout-align="space-between center" ng-repeat="place in itinerary">
-                        <div flex="35" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photos[0].photo_reference}}'); height: 150px; background-size: cover;">
+                        <div ng-hide="placeCtrl.checkDay(place.endTime)">
+                        	<h2 flex="100">Day {{placeCtrl.currentDay}}</h2>
+                        </div>
+                        <div flex="35" ng-show="place.photo_reference" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photo_reference}}'); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="35" ng-show="!place.photo_reference" style="background-image: url('{{place.imageUrl}}'); height: 150px; background-size: cover;">
                         </div>
                         <div flex="65" style="margin-left: 1em;">
                             <h2>{{place.name}}</h2>
                             <p>{{place.rating}}/5 stars</p>
-                            <p>Address: {{place.formatted_address}}</p>
+                            <p>Address: {{place.address}}</p>
                         </div>
                     </div>
                 </md-card-content>

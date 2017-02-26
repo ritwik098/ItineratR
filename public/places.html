@@ -4,7 +4,7 @@
                 <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                     <i class="material-icons" style="color: #f0f0f0">menu</i>
                 </md-button>
-                <h2 flex="" md-truncate="">Itineratr</h2>
+                <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
             </div>
         </md-toolbar>
           <ng-map zoom="3" style="height:95%; width: 100%;">
@@ -16,9 +16,9 @@
                         <span class="md-headline">{{city.city}}</span>
                       </md-card-title-text>
                     </md-card-title>-->
-                    <md-card-content style="padding: 5px; margin-top: -10px; margin-bottom: -10px;" layout="row" layout-align="space-around center">
+                    <md-card-content style="padding: 5px 15px; margin-top: -10px;" layout="column" layout-align="space-around center">
                         <div><a ng-href="#" ng-click="placesCtrl.goToPlace(city)"><h3>{{city.city}}</h3></a></div>
-                        <div><p>${{city.price}}</p></div>
+                        <div style="color: green; font-size: 1.1em; margin-top: -10px;"><p>${{city.price}}</p></div>
                     </md-card-content>
 
                   </md-card>

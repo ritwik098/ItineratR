@@ -124,7 +124,9 @@
 	.controller('PlaceCtrl', function($scope, $rootScope, $location, $http) {
 		this.city = $rootScope.city;
 		this.depDate = new Date($rootScope.city.departure_date).toLocaleDateString();
+		this.depDateObj = new Date($rootScope.city.departure_date);
 		this.returnDate = new Date($rootScope.city.return_date).toLocaleDateString();
+		this.returnDateObj = new Date($rootScope.city.return_date);
 		this.price = Math.round($rootScope.city.price);
 		$scope.bgUrl;
 		var req = {
@@ -139,9 +141,11 @@
 				    success(function(data, status, headers, config) {
 				        // this callback will be called asynchronously
 				        // when the response is available
-				        $scope.bgUrl = data.url;
-				        var myEl = angular.element( document.querySelector( '#bgcontainer' ) );
+				        if(data.url !== ""){
+					        $scope.bgUrl = data.url;
+					        var myEl = angular.element( document.querySelector( '#bgcontainer' ) );
 							myEl.css('background-image','url("'+data.url+'")');
+						}
 				      }).
 				      error(function(data, status, headers, config) {
 				        	console.log(data);
@@ -165,6 +169,28 @@
 				        	console.log(data);
 				        	console.log(req);
 				      });
+		this.getDay = function(date){
+			if(req.startDate.getDate() - new Date(date).getDate() + 1 > this.currentDay)
+				this.currentDay++;
+			return (req.startDate.getDate() - new Date(date).getDate() + 1);
+		};
+		this.getDateObj = function(date){
+			return new Date(date);
+		};
+		this.checkDay = function(date){
+			console.log("day: "+ (new Date(date).getDate() - req.startDate.getDate() + 1));
+			console.log("startdate "+ req.startDate.getDate());
+			console.log("placedate "+ new Date(date).getDate());
+			console.log("currentDay"+this.currentDay);
+			if(new Date(date).getDate() - req.startDate.getDate() + 1 > this.currentDay){
+				this.currentDay+=1;
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		this.currentDay = 0;
 	})
 
 
