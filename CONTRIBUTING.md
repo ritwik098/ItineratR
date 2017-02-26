@@ -4,7 +4,7 @@ Thanks for taking the time to contribute to the project!
 
 ## Community
 
-Welcome to the exploro.us developer community! We have a couple standards that we hope you'll follow:
+Welcome to the ItineratR developer community! We have a couple standards that we hope you'll follow:
 
 * Be nice
 * Be concise
