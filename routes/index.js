@@ -79,24 +79,32 @@ router.post('/api/getImage',function(req,res,next){
 });
 
 router.post('/api/sendHotels',function(req,res,next){
-	var prop = {
-		latitude : req.body.lat,
-		longitude : req.body.lng,
-		radius : "50",
-		check_in : req.body.check_in,
-		check_out : req.body.check_out
-	}
+	
 
-	amadeus.hotelSearch(prop,(err,data)=>{
+	google.getCoordinates(req.body.city,(err,coord)=>{
 		if(err){
 			console.log(err);
-			res.sendStatus(400);
 		}
-		else{
-			console.log(data);
-			res.send(data);
+		var prop = {
+			latitude : coord.lat,
+			longitude : coord.lng,
+			radius : "50",
+			check_in : req.body.check_in,
+			check_out : req.body.check_out
 		}
+
+		amadeus.hotelSearch(prop,(err,data)=>{
+			if(err){
+				console.log(err);
+				res.sendStatus(400);
+			}
+			else{
+				console.log(data);
+				res.send(data);
+			}
+		});
 	});
+		
 });
 
 /* GET home page. */
