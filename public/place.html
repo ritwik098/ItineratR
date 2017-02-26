@@ -100,18 +100,25 @@
             </md-card-title>
 
                 <md-card-content>
-                    <div class="it_details" layout="row" layout-align="space-between center" ng-repeat="place in itinerary">
-                        <div ng-hide="placeCtrl.checkDay(place.endTime)">
-                        	<h2 flex="100">Day {{placeCtrl.currentDay}}</h2>
-                        </div>
-                        <div flex="35" ng-show="place.photo_reference" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photo_reference}}'); height: 150px; background-size: cover;">
-                        </div>
-                        <div flex="35" ng-show="!place.photo_reference" style="background-image: url('{{place.imageUrl}}'); height: 150px; background-size: cover;">
-                        </div>
-                        <div flex="65" style="margin-left: 1em;">
-                            <h2>{{place.name}}</h2>
-                            <p>{{place.rating}}/5 stars</p>
-                            <p>Address: {{place.address}}</p>
+                    <div class="it_details" layout="row" layout-align="space-between center" ng-repeat="place in itinerary" ng-if="place.day > placeCtrl.currentDay" ng-init="incDay()">
+                        <div layout="column">
+
+	                        <div layout="row" layout-align="space-between center">
+	                        	<div layout="column" flex="15" layout-align="center center">
+	                        		<div><i class="material-icons">access_time</i></div>
+	                        		<div>{{placeCtrl.getTime(place.endTime)}}</div>
+	                        	</div>
+		                        <div flex="30" ng-show="place.photo_reference" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photo_reference}}'); height: 150px; width: 150px;background-size: cover;">
+		                        </div>
+		                        <div flex="30" ng-show="!place.photo_reference" style="background-image: url('{{place.imageUrl}}'); height: 150px; width: 150px; background-size: cover;">
+		                        </div>
+		                        <div flex="55" style="margin-left: 1em;">
+		                            <h2>{{place.name}}</h2>
+		                           	<p>Day {{place.day}}</p>
+		                            <p>{{place.rating}}/5 stars</p>
+		                            <p>Address: {{place.address}}</p>
+		                        </div>
+	                        </div>
                         </div>
                     </div>
                 </md-card-content>
