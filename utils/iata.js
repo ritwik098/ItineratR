@@ -3806,7 +3806,7 @@ var iataDatabase = [{ code: 'OAA', city: 'Gardez', country: 'Afghanistan' }
 ,
 { code: 'CPR', city: 'Casper', country: 'Wyoming' }
 ,
-{ code: 'CPS', city: 'Cahokia', country: 'St. Louis/MO' }
+{ code: 'CPS', city: 'Cahokia', country: 'St. Louis' }
 ,
 { code: 'CPT', city: 'Cape Town', country: 'South Africa' }
 ,
