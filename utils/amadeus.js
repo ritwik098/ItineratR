@@ -19,7 +19,17 @@ function hotelSearch(properties, cb) {
     properties.apikey = amadeusKey;
     var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-circle';
     request({ url: url, qs: properties, json: true }, function(err, response, body) {
-      cb(err, body);
+    	if(!(body == undefined)){
+    		for(var i = 0; i<body.results.length; i++){
+    			if(i==0){
+    				body.results[i].recommended = true;
+    			}
+    			else{
+    				body.results[i].recommended = false;
+    			}
+    		}
+    	}
+      	cb(err, body);
     });
 }
 
