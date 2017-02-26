@@ -8,17 +8,17 @@
             </div>
         </md-toolbar>
           <ng-map zoom="3" style="height:95%; width: 100%;">
-                 <custom-marker ng-repeat="city in placesCtrl.cities" position="{{city.city + ', ' +city.country}}" on-click="placesCtrl.click({{city.city}})">
+                 <custom-marker ng-repeat="city in placesCtrl.cities" position="{{city.city}}, {{city.country}}">
                   <div class="location_card">
                   <md-card style="padding: 0">
-                    <img ng-src="http://www.ninezero.com/images/1700-960/sailboats-in-boston-0a5755ca.jpg" class="md-card-image" alt="Washed Out">
+                    <img ng-src="{{city.imgurl}}" class="md-card-image" alt="Washed Out">
                     <!--<md-card-title>
                       <md-card-title-text>
                         <span class="md-headline">{{city.city}}</span>
                       </md-card-title-text>
                     </md-card-title>-->
                     <md-card-content style="padding: 5px; margin-top: -10px; margin-bottom: -10px;" layout="row" layout-align="space-around center">
-                        <div><a ng-href="/place/{{city.destination}}"><h3>{{city.city}}</h3></a></div>
+                        <div><a ng-href="#" ng-click="placesCtrl.goToPlace(city)"><h3>{{city.city}}</h3></a></div>
                         <div><p>${{city.price}}</p></div>
                     </md-card-content>
 

@@ -35,17 +35,19 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 	prop.max_price -= prop.duration*51; 
 	amadeus.flightSearch(prop,(err,data)=>{
 		if(err){
+			console.log(err);
 			res.sendStatus(400);
 		}
 		//console.log(data.origin);
 		if(data.results == undefined){
+			console.log(data);
 			res.sendStatus(400);
 		}
 		else{
 			for(var i = 0; i < data.results.length;i++){
 				
 				var minHotelCost = 80*prop.duration;
-				if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100)> (prop.max_price - data.results[i].price + 96*prop.duration)){
+				if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100)> (prop.max_price - data.results[i].price + 76*prop.duration)){
 					var json = data.results[i];
 					//console.log(data.results[i].destination);
 					var b = iataDatabase;

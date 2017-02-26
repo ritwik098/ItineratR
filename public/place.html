@@ -1,4 +1,5 @@
-<div ng-style="image_path != '' && {'background-image':'url(/images/sf.jpg)'}" class="place_container" ng-controller="PlaceCtrl as placeCtrl">
+<div ng-controller="PlaceCtrl as placeCtrl">
+<div ng-style="image_path != '' && {'background-image':'url(\'{{placeCtrl.bgUrl}}\')'}" class="place_container" >
     <md-toolbar class="md-hue-2 transparent" flex flex="100">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
@@ -9,7 +10,7 @@
     </md-toolbar>
     <div layout="row" layout-fill layout-align="space_around start">
         <div layout="column" flex flex="50">
-            <h1 class="place_title">SAN FRANCISCO</h1>
+            <h1 class="place_title">{{city.city}}</h1>
             <br>
             <md-card>
                 <md-card-title>
@@ -20,9 +21,10 @@
                 <md-card-content>
                     <div class="flight_details" layout="row" layout-align="space-between center">
                         <div flex="35">
-                            <h2>Delta Air Lines</h2>
-                            <p>Flight no. 3639</p>
-                            <h3>$360</h3>
+                            <h2>{{placeCtrl.airline}}</h2>
+                            <p>Departing: {{placeCtrl.depDate}}</p>
+                            <p>Returning: {{placeCtrl.returnDate}}</p>
+                            <h3>${{placeCtrl.price}}</h3>
                         </div>
                         <div flex="20">
                             <h1>ORD</h1>
@@ -33,7 +35,7 @@
                             <i class="material-icons flight_icon">flight</i>
                         </div>
                         <div flex="20">
-                            <h1>SFO</h1>
+                            <h1>{{placeCtrl.destCode}}</h1>
                             <p>4:50PM</p>
                             <p>Terminal 3</p>
                         </div>
@@ -105,4 +107,5 @@
             </md-card-actions>
         </md-card>
     </div>
+</div>
 </div>
