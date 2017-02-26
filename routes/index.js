@@ -69,9 +69,9 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 	});
 });
 
-router.post('/getImage',function(req,res,next){
+router.post('/api/getImage',function(req,res,next){
 	var name = req.body.city;
-	scrapeImage(city,(err,data)=>{
+	scrapeImage(name,(err,data)=>{
 		console.log(data);
 		res.send(data);
 	});
