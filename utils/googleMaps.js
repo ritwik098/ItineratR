@@ -24,6 +24,9 @@ function getCoordinates(address, cb) {
 		key: googleMapsKey
 	}
 	request({ url: url, qs: properties, json: true }, function(err, response, body) {
+		//console.log(err)
+		//console.log(response)
+		//console.log(body)
 		if (body.results == undefined || body.results.length == 0)
     	return cb({ message: 'Location not found' });
     var loc = body.results[0].geometry.location;
@@ -34,12 +37,12 @@ function getCoordinates(address, cb) {
 function getPointsOfInterest(properties,cb) {
 	var url = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 	var qr = {
-		query : "points of interest in "+properties.cityName,
+		query : "tourist attractions or points of interest in "+properties.cityName,
 		key : googleMapsKey
 	}
 
 	request({ url: url, qs: qr, json: true }, function(err, response, body) {
-	    //console.log(body);
+	    console.log(body.results.length);
 	    cb(err,body);
 	});
 }

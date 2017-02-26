@@ -10,11 +10,18 @@ var yelp = new Yelp({
 });
 
 function getResturaunts(props, cb) {
-  props.limit = 10;
+  props.term = 'Resturaunt';
+  props.sort = 2;
+  yelp.search(props, cb);
+}
+
+function getBars(props, cb) {
+  props.category_filter = 'nightlife';
   props.sort = 2;
   yelp.search(props, cb);
 }
 
 module.exports = {
+  getBars: getBars,
   getResturaunts: getResturaunts
 }

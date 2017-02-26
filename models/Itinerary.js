@@ -3,10 +3,10 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var EventSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  address: { type: String, required: true },
   cost: { type: Number, default: 0 },
-  day: { type: Number, required: true },
-  startTime: { type: Number, required: true },
-  endTime: { type: Number, required: true },
+  startTime: { type: Date, required: true },
+  endTime: { type: Date, required: true },
   imageUrl: { type: String }
 });
 
