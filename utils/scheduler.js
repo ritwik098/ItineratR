@@ -17,16 +17,28 @@ function daysBetween(firstDate, secondDate) {
   return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 }
 
-function parseYelp(obj) {
+function parseYelp(obj, st, et) {
   var res = {
-    name: obj.name
+    name: obj.name,
+    address: obj.location.display_address.join(', '),
+    startTime: st,
+    endTime: et,
+    imageUrl: obj.image_url
   }
   return res;
+}
+
+function mToDate(m) {
+  //return new Date(m.utcOffset('-6').format('YYYY-MM-DD HH:mm'));
+  var res = moment(m);
+  res.subtract(6, 'h');
+  return res.toDate();
 }
 
 function schedule(start, end, city, cb) {
   var wakeHour = 10;
   var sleepHour = 23.5;
+  var kph = 65;
   gmaps.getPointsOfInterest({ cityName: city }, function(err, body) {
     if (err)
       return cb(err);
@@ -54,22 +66,33 @@ function schedule(start, end, city, cb) {
           dinner: 0 // 7PM - 10PM
         }
         var curTime = moment(start).startOf('hour');
+        var prev = null;
         while (curTime.isBefore(end)) {
           var hour = curTime.hour();
           if (hour >= 12 && hour <= 14 && !meals.lunch) {
             meals.lunch = 1;
+            var st = mToDate(curTime);
             curTime.add(45 + ~~(Math.random()*3)*15, 'm');
-            var r = parseYelp(resturaunts.pop());
+            var et = mToDate(curTime);
+            var r = parseYelp(resturaunts.pop(), st, et);
+            curTime.add(30, 'm');
             results.push(r);
           }
           else if (hour >= 18 && hour <= 21 && !meals.dinner) {
             meals.dinner = 1;
-            curTime.add(45 + ~~(Math.random()*4)*15);
-            var r = parseYelp(resturaunts.pop());
+            var st = mToDate(curTime);
+            curTime.add(45 + ~~(Math.random()*4)*15, 'm');
+            var et = mToDate(curTime);
+            var r = parseYelp(resturaunts.pop(), st, et);
+            curTime.add(30, 'm');
             results.push(r);
           }
           else if (hour >= 21) {
-            var b = parseYelp(bars.pop());
+            var st = mToDate(curTime);
+            var et = moment(curTime)
+            et.add(45 + ~~(Math.random()*3)*15, 'm')
+            et = mToDate(et);
+            var b = parseYelp(bars.pop(), st, et);
             curTime.add(5, 'h');
             curTime.hour(10);
             results.push(b);
@@ -81,9 +104,10 @@ function schedule(start, end, city, cb) {
           }
           else {
             var p = places.pop();
-            var oldTime = curTime.toDate();
+            var oldTime = mToDate(curTime);
             curTime.add(90 + ~~(Math.random()*8)*15, 'm');
-            var endTime = curTime.toDate();
+            var endTime = mToDate(curTime);
+            curTime.add(30, 'm');
             var place = {
               name: p.name,
               imageUrl: p.icon,

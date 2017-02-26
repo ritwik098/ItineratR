@@ -20,6 +20,84 @@
     "groupTitle": "Index"
   },
   {
+    "type": "post",
+    "url": "/api/itinerary",
+    "title": "Create Itineraries",
+    "name": "CreateItineraries",
+    "group": "Itinerary",
+    "description": "<p>This path allows creation of itineraries</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "[...]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/itinerary.js",
+    "groupTitle": "Itinerary"
+  },
+  {
+    "type": "post",
+    "url": "/api/itinerary/generate",
+    "title": "Generate Itinerary",
+    "name": "GenerateItineraries",
+    "group": "Itinerary",
+    "description": "<p>This path creates an itinerary</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "city",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "startDate",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "endDate",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/itinerary.js",
+    "groupTitle": "Itinerary"
+  },
+  {
+    "type": "get",
+    "url": "/api/itinerary/city/:city",
+    "title": "Get Itineraries By City",
+    "name": "GetCityItineraries",
+    "group": "Itinerary",
+    "description": "<p>This path gets a list of all itineraries for a specific city</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "[...]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/itinerary.js",
+    "groupTitle": "Itinerary"
+  },
+  {
     "type": "get",
     "url": "/api/itinerary",
     "title": "Get All Itineraries",
@@ -132,5 +210,33 @@
     "version": "0.0.0",
     "filename": "./routes/api/users.js",
     "groupTitle": "User"
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./public/docs/main.js",
+    "group": "_home_jj_Desktop_github_projects_HackIllinois2017_public_docs_main_js",
+    "groupTitle": "_home_jj_Desktop_github_projects_HackIllinois2017_public_docs_main_js",
+    "name": ""
   }
 ]
