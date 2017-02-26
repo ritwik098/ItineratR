@@ -108,14 +108,16 @@ function schedule(start, end, city, cb) {
             curTime.add(90 + ~~(Math.random()*8)*15, 'm');
             var endTime = mToDate(curTime);
             curTime.add(30, 'm');
-            var place = {
-              name: p.name,
-              imageUrl: p.icon,
-              address: p.formatted_address,
-              startTime: oldTime,
-              endTime: endTime
+            if (p) {
+              var place = {
+                name: p.name,
+                imageUrl: p.icon,
+                address: p.formatted_address,
+                startTime: oldTime,
+                endTime: endTime
+              }
+              results.push(place);
             }
-            results.push(place);
           }
         }
         cb(null, results);
