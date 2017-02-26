@@ -23,7 +23,7 @@
 
     .controller("HomeCtrl", function($scope, $rootScope, $location, $http, $mdDialog) {
     	this.minDate = new Date();
-    	this.budget = 500;
+    	this.budget = 1000;
     	$scope.loading = false;
   		$scope.gPlace;
 
@@ -33,7 +33,7 @@
   			var req = {
   					"origin": $rootScope.details[0],
 				   	"departure": this.startDate.toISOString().substring(0, 10),
-				   	"duration": (this.endDate - this.startDate)/86400000,
+				   	"duration": Math.round((this.endDate - this.startDate)/86400000),
 				   	"max_price": this.budget
 				   };
 			console.log(req);
@@ -81,6 +81,12 @@
 			$location.path("/");
 		}
 		this.click = function(city) {console.log(city);};
+
+		this.goToPlace= function(city){
+			console.log(city);
+			$rootScope.city = city;
+			$location.path("/place");
+		};
 	  NgMap.getMap().then(function(map) {
 	    console.log(map.getCenter());
 	    console.log('markers', map.markers);
@@ -89,7 +95,13 @@
 	})
 
 	.controller('PlaceCtrl', function($scope, $rootScope, $location) {
-		
+		this.city = $rootScope.city;
+		this.depDate = new Date($rootScope.city.departure_date).toLocaleDateString();
+		this.returnDate = new Date($rootScope.city.return_date).toLocaleDateString();
+		this.price = Math.round($rootScope.city.price);
+		this.bgUrl = $rootScope.city.imgurl;
+		this.airline = $rootScope.city.airline;
+		this.destCode = $rootScope.city.destination;
 	})
 
 	.directive('googleplace', [ function() {
