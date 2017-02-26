@@ -82,4 +82,8 @@ router.delete('/:id', (req, res, next) => {
   });
 });
 
+router.post('/recommendcity', function(req, res, next) {
+  res.send('');
+});
+
 module.exports = router;
