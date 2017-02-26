@@ -1,0 +1,108 @@
+<div ng-style="image_path != '' && {'background-image':'url(/images/sf.jpg)'}" class="place_container" ng-controller="PlaceCtrl as placeCtrl">
+    <md-toolbar class="md-hue-2 transparent" flex flex="100">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                <i class="material-icons" style="color: #f0f0f0">menu</i>
+            </md-button>
+            <h2 flex="" md-truncate="">ITINERATR</h2>
+        </div>
+    </md-toolbar>
+    <div layout="row" layout-fill layout-align="space_around start">
+        <div layout="column" flex flex="50">
+            <h1 class="place_title">SAN FRANCISCO</h1>
+            <br>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Your Flight</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div class="flight_details" layout="row" layout-align="space-between center">
+                        <div flex="35">
+                            <h2>Delta Air Lines</h2>
+                            <p>Flight no. 3639</p>
+                            <h3>$360</h3>
+                        </div>
+                        <div flex="20">
+                            <h1>ORD</h1>
+                            <p>3:40PM</p>
+                            <p>Terminal E</p>
+                        </div>
+                        <div flex="15" flex layout-align="center center">
+                            <i class="material-icons flight_icon">flight</i>
+                        </div>
+                        <div flex="20">
+                            <h1>SFO</h1>
+                            <p>4:50PM</p>
+                            <p>Terminal 3</p>
+                        </div>
+                    </div>
+                    
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Book this flight</md-button>
+                    <md-button>Get more options</md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Your Stay</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div class="hotel_details" layout="row" layout-align="space-between center">
+                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="65" style="margin-left: 1em;">
+                            <h2>Stanford Court Hotel</h2>
+                            <p>4 star</p>
+                            <p>Address: 905 California St, San Francisco, CA 94108</p>
+							<p>Phone:(415) 989-3500</p>
+                        </div>
+                    </div>
+                    <div class="hotel_details" layout="row" layout-align="space-between start">
+                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="65" style="margin-left: 1em;">
+                            <h2>Stanford Court Hotel</h2>
+                            <p>4 star</p>
+                            <p>Address: 905 California St, San Francisco, CA 94108</p>
+							<p>Phone:(415) 989-3500</p>
+                        </div>
+                    </div>
+                    <div class="hotel_details" layout="row" layout-align="space-between start">
+                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="65" style="margin-left: 1em;">
+                            <h2>Stanford Court Hotel</h2>
+                            <p>4 star</p>
+                            <p>Address: 905 California St, San Francisco, CA 94108</p>
+							<p>Phone:(415) 989-3500</p>
+                        </div>
+                    </div>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Action 1</md-button>
+                    <md-button>Action 2</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <md-card flex flex="50">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Itinerary</span>
+                    <span class="md-subhead">4 days 3 nights</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-lg card-media"></div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>

@@ -13,25 +13,22 @@
 	    })
 	    .when("/places", {
 	        templateUrl : "places.html"
+	    })
+	    .when("/place", {
+	        templateUrl : "place.html"
 	    });
 	  $locationProvider.html5Mode(true);
 
 	})
 
-    .controller("HomeCtrl", function($scope, $rootScope, $location, $http) {
+    .controller("HomeCtrl", function($scope, $rootScope, $location, $http, $mdDialog) {
     	this.minDate = new Date();
     	this.budget = 500;
-    	this.loading = false;
-    	$scope.$on('lat', function(response) {
-			this.lat = response;
-		});
-		$scope.$on('lon', function(response) {
-			this.lon = response;
-		});
+    	$scope.loading = false;
   		$scope.gPlace;
 
   		this.submit = function(){
-  			this.loading = true;
+  			$scope.loading = true;
   			console.log($rootScope.details);
   			var req = {
   					"origin": $rootScope.details[0],
@@ -45,40 +42,24 @@
 				    success(function(data, status, headers, config) {
 				        // this callback will be called asynchronously
 				        // when the response is available
-				        this.loading = false;
+				        $scope.loading = false;
 				        $location.path("/places");
-
+				        $rootScope.places = data;
 				        console.log(data);
 				      }).
 				      error(function(data, status, headers, config) {
-				        // called asynchronously if an error occurs
-				        // or server returns response with an error status.
+				        	$scope.loading = false;
+				        	$mdDialog.show(
+						      $mdDialog.alert()
+						        .parent(angular.element(document.querySelector('#popupContainer')))
+						        .clickOutsideToClose(true)
+						        .title('Oops! :/')
+						        .textContent('We couldn\'t find locations awesome enough for you! Try searching a location nearby to airport maybe?')
+						        .ok('Okay!')
+						    );
+
 				      });
-
-  			/*$http({
-			  method: 'GET',
-			  url: 'http://iatageo.com/getCode/'+$rootScope.details[3]+'/'+$rootScope.details[4]
-			}).then(function successCallback(response) {
-				   var iata = response.data.IATA;
-				   req.origin = iata;
-				   console.log(req);
-
-
-					$http.post('/api/sendTravelInformation', req).
-				    success(function(data, status, headers, config) {
-				        // this callback will be called asynchronously
-				        // when the response is available
-				        console.log(data);
-				      }).
-				      error(function(data, status, headers, config) {
-				        // called asynchronously if an error occurs
-				        // or server returns response with an error status.
-				      });
-
-			  }, function errorCallback(response) {
-			   		console.log(response);
-			  });*/
-  		};
+	  	};
 	})
 
 	.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
@@ -92,37 +73,23 @@
 	    };
   	})
 
-	.controller('PlacesCtrl', function(NgMap, $scope) {
+	.controller('PlacesCtrl', function(NgMap, $scope, $rootScope, $location) {
 		$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQHc8aZoBXkQumkO4xpqYxklRj2RG9Lb8";
-		this.cities = [
-		{ 
-		destination: 'SLC',
-		 departure_date: '2017-05-03',
-		 return_date: '2017-05-07',
-		 price: '222.40',
-		 airline: 'DL',
-		 city: 'Salt Lake City',
-		 country: 'US',
-		 lat: 40.7767833,
-		 lon: -112.0605697
-		},
-		 { destination: 'SRQ',
-		 departure_date: '2017-04-29',
-		 return_date: '2017-05-03',
-		 price: '223.60',
-		 airline: 'DL',
-		 city: 'Sarasota',
-		 country: 'US',
-		 lat: 27.3411408,
-		 lon: -82.5688899
+		
+		this.cities = $rootScope.places;
+		if($rootScope.places.length < 1){
+			$location.path("/");
 		}
-		];
-		$scope.click = function() {console.log('click')};
+		this.click = function(city) {console.log(city);};
 	  NgMap.getMap().then(function(map) {
 	    console.log(map.getCenter());
 	    console.log('markers', map.markers);
 	    console.log('shapes', map.shapes);
 	  });
+	})
+
+	.controller('PlaceCtrl', function($scope, $rootScope, $location) {
+		
 	})
 
 	.directive('googleplace', [ function() {
