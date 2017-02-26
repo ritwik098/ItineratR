@@ -1,5 +1,5 @@
 body {
-  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 18px "Roboto", Helvetica, Arial, sans-serif;
   color: #f0f0f0;
 }
 
@@ -7,11 +7,11 @@ a {
   color: #00B7FF;
 }
 
-h1{
+.hero_text h1{
 	font-family: 'Nexa Light', Helvetica, Arial, sans-serif;
 }
 
-strong{
+.hero_text strong{
 	font-family: 'Nexa Bold', Helvetica, Arial, sans-serif;
 }
 
@@ -53,13 +53,42 @@ md-progress-circular.md-accent path{
 
 .demo-layout-transparent {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/bg.jpg') center / cover;
-
 }
 .demo-layout-transparent .mdl-layout__header,
 .demo-layout-transparent .mdl-layout__drawer-button {
   /* This background is dark, so we set text to white. Use 87% black instead if
      your background is light. */
   color: white;
+}
+
+.place_container{
+	padding: 1em;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.place_title{
+	margin: 0.5em;
+	font-size: 3em;
+	font-family: 'Nexa Bold', Helvetica, Arial, sans-serif;
+}
+
+.flight_icon{
+	/* Safari */
+	-webkit-transform: rotate(90deg);
+
+	/* Firefox */
+	-moz-transform: rotate(90deg);
+
+	/* IE */
+	-ms-transform: rotate(90deg);
+
+	/* Opera */
+	-o-transform: rotate(90deg);
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	font-size: 3em;
 }
 
 .md-errors-spacer:empty { display: none; }
@@ -98,6 +127,11 @@ input[google-place]::-moz-placeholder {
 
 input[google-place]:-ms-input-placeholder {
     opacity: 0;
+}
+
+.location_card{
+	max-width: 200px;
+	height: 80px;
 }
 
 .custom-marker {
