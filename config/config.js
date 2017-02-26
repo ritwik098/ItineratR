@@ -1,4 +1,5 @@
 module.exports = {
+  azureKey: '***REMOVED***',
   amadeusKey: '***REMOVED***',
   googleMapsKey: 'AIzaSyAkbHjDF-Mp-tQR7DefDW_OSSTZUmcTfdQ',
   sitaAirportKey: '***REMOVED***',
