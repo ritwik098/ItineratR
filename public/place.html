@@ -1,5 +1,5 @@
 <div ng-controller="PlaceCtrl as placeCtrl">
-<div ng-style="image_path != '' && {'background-image':'url(\'{{placeCtrl.bgUrl}}\')'}" class="place_container" >
+<div class="place_container" id="bgcontainer">
     <md-toolbar class="md-hue-2 transparent" flex flex="100">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
@@ -27,7 +27,7 @@
                             <h3>${{placeCtrl.price}}</h3>
                         </div>
                         <div flex="20">
-                            <h1>ORD</h1>
+                            <h1>{{placeCtrl.deptCode}}</h1>
                             <p>3:40PM</p>
                             <p>Terminal E</p>
                         </div>
@@ -97,10 +97,19 @@
                     <span class="md-headline">Itinerary</span>
                     <span class="md-subhead">4 days 3 nights</span>
                 </md-card-title-text>
-                <md-card-title-media>
-                    <div class="md-media-lg card-media"></div>
-                </md-card-title-media>
             </md-card-title>
+
+                <md-card-content>
+                    <div class="it_details" layout="row" layout-align="space-between center" ng-repeat="place in itinerary">
+                        <div flex="35" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photos[0].photo_reference}}'); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="65" style="margin-left: 1em;">
+                            <h2>{{place.name}}</h2>
+                            <p>{{place.rating}}/5 stars</p>
+                            <p>Address: {{place.formatted_address}}</p>
+                        </div>
+                    </div>
+                </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button>Action 1</md-button>
                 <md-button>Action 2</md-button>
