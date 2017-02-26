@@ -6,12 +6,17 @@ var router = express.Router();
 var iataDatabase = require('../utils/iata.js').data;
 var fs = require('fs');
 var bodyParser = require('body-parser');
-
+var scrapeImage = require('../utils/scrapeImage.js').scrapeImage;
 
 
 router.post('/api/sendTravelInformation',function(req,res,next){
 	var finalListOfPlaces = [];
 	var org = '';
+	var imgurl;
+	var city = req.body.origin;
+	scrapeImage(city,(err,image)=>{
+		imgurl = image.url;
+	});
 	for(var i = 0; i< iataDatabase.response.length; i++){
 		
 		if((iataDatabase.response[i].name).localeCompare(req.body.origin) == 0){
@@ -49,8 +54,11 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 						if((b.response[index].code).localeCompare(data.results[i].destination)== 0){
 							json.city = b.response[index].name;
 							json.country = b.response[index].country_code;
+							
+							json.imgurl = imgurl;
 							finalListOfPlaces.push(json);
 							console.log(finalListOfPlaces[i]);
+								
 						}
 						//console.log(iataDatabase[index].code);
 					}
