@@ -47,7 +47,35 @@ function getPointsOfInterest(properties,cb){
 	
 }
 
+function calculateDistance(obj1,obj2){
+	lat1 = obj1.lat;
+	lon1 = obj1.lng;
+
+	lat2 = obj2.lat;
+	lon2 = obj2.lng;
+
+	var R = 6371e3; // metres
+	var phi1 = deg2rad(lat1);
+	var phi2 = deg2rad(lat2);
+	var deltaPhi = deg2rad(lat2-lat1);
+	var deltaLamda = deg2rad(lon2-lon1);
+
+	var a = Math.sin(deltaPhi/2) * Math.sin(deltaPhi/2) +
+	        Math.cos(phi1) * Math.cos(phi2) *
+	        Math.sin(deltaLamda/2) * Math.sin(deltaLamda/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+	var d = R * c;
+
+	return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
 module.exports = {
+  calculateDistance : calculateDistance,
   getPointsOfInterest : getPointsOfInterest,
   getCoordinatesOfCity : getCoordinatesOfCity,
   getPlaceInfo : getPlaceInfo

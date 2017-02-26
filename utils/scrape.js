@@ -1,8 +1,8 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var database = require('./iata.js').iataDatabase;
-
-//for(var k = 65 ; k<=90;k++){    
+var google = require('./googleMaps.js')
+   
     request('https://en.wikipedia.org/wiki/List_of_airports_by_IATA_code:_D', function (error, response, html) {
       if(error){
         console.log(error);
@@ -30,4 +30,5 @@ var database = require('./iata.js').iataDatabase;
 
       }
     });
-//}
+
+    console.log(google.calculateDistance({lat:"-45",lng:"71"},{lat:"40",lng:"-88"}));
