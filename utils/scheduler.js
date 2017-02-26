@@ -25,7 +25,9 @@ function parseYelp(obj, st, et) {
     address: obj.location.display_address.join(', '),
     startTime: st,
     endTime: et,
-    imageUrl: obj.image_url
+    imageUrl: obj.image_url,
+    rating: obj.rating,
+    phone: obj.phone
   }
   return res;
 }
@@ -119,7 +121,8 @@ function schedule(start, end, city, cb) {
                 imageUrl: p.icon,
                 address: p.formatted_address,
                 startTime: oldTime,
-                endTime: endTime
+                endTime: endTime,
+                rating: p.rating
               }
               results.push(place);
             }
