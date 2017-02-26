@@ -49,4 +49,6 @@ If you find a bug, please follow these steps:
 
 ## Style Guide / Coding conventions
 
-Please refer to the [Airbnb Javascript Styel Guide](https://github.com/airbnb/javascript) to follow conventions in this project.
+Please refer to the [Airbnb Javascript Styel Guide](https://github.com/airbnb/javascript) to follow javascript conventions in this project.
+
+For frontend developers, we have documented routes which you can access under /docs. Backend developers should maintain this document by using [apiDoc](http://apidocjs.com/)
