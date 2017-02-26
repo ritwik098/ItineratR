@@ -80,7 +80,6 @@ describe('Microsoft Azure ML', function() {
     azureML.predictCities({ age: 31, groupSize: 2 }, function(err, body) {
       console.log(err);
       console.log(body);
-      console.log(body.Results);
       done();
     });
   });

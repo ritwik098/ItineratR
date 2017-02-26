@@ -25,7 +25,19 @@ function predictCities(user, cb) {
     body: payload,
     json: true
   }, function(err, res, body) {
-    cb(err, body);
+    var out = body.Results.output1[0];
+    var res = []
+    for (var key in out) {
+      if (key.substring(0,6) == 'Scored') {
+        if (out[key] > 0) {
+          res.push({
+            city: key.substring(32, key.length-1),
+            score: out[key]
+          });
+        }
+      }
+    }
+    cb(err, res);
   });
 }
 
