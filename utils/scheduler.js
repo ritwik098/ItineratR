@@ -17,7 +17,7 @@ function daysBetween(firstDate, secondDate) {
   return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 }
 
-function parseYelp(obj, st, et) {
+function parseYelp(obj, st, et, startTime) {
   if (obj == undefined)
     return null;
   var res = {
@@ -27,7 +27,8 @@ function parseYelp(obj, st, et) {
     endTime: et,
     imageUrl: obj.image_url,
     rating: obj.rating,
-    phone: obj.phone
+    phone: obj.phone,
+    day: daysBetween(st, startTime) + 1
   }
   return res;
 }
@@ -78,7 +79,7 @@ function schedule(start, end, city, cb) {
             var st = mToDate(curTime);
             curTime.add(45 + ~~(Math.random()*3)*15, 'm');
             var et = mToDate(curTime);
-            var r = parseYelp(resturaunts.pop(), st, et);
+            var r = parseYelp(resturaunts.pop(), st, et, start);
             curTime.add(30, 'm');
             if (r)
               results.push(r);
@@ -88,7 +89,7 @@ function schedule(start, end, city, cb) {
             var st = mToDate(curTime);
             curTime.add(45 + ~~(Math.random()*4)*15, 'm');
             var et = mToDate(curTime);
-            var r = parseYelp(resturaunts.pop(), st, et);
+            var r = parseYelp(resturaunts.pop(), st, et, start);
             curTime.add(30, 'm');
             if (r)
               results.push(r);
@@ -98,7 +99,7 @@ function schedule(start, end, city, cb) {
             var et = moment(curTime)
             et.add(45 + ~~(Math.random()*3)*15, 'm')
             et = mToDate(et);
-            var b = parseYelp(bars.pop(), st, et);
+            var b = parseYelp(bars.pop(), st, et, start);
             curTime.add(5, 'h');
             curTime.hour(10);
             if (b)
@@ -123,8 +124,10 @@ function schedule(start, end, city, cb) {
                 startTime: oldTime,
                 endTime: endTime,
                 rating: p.rating,
-                photo_reference: p.photos[0].photo_reference
+                day: daysBetween(start, oldTime) + 1
               }
+              if (p.photos && p.photos.length > 0 && p.photos[0].photo_reference)
+                place.photo_reference = p.photos[0].photo_reference
               results.push(place);
             }
           }
