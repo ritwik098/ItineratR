@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var Itinerary = require('../../models/Itinerary');
+var scheduler = require('../../utils/scheduler').schedule;
 
 /**
  * @api {get} /api/itinerary Get All Itineraries
@@ -35,6 +36,24 @@ router.get('/city/:city', function(req, res, next) {
       return next(err);
     res.json(doc);
   });
+});
+
+/**
+ * @api {post} /api/itinerary/generate Generate Itinerary
+ * @apiName GenerateItineraries
+ * @apiGroup Itinerary
+ * @apiDescription This path creates an itinerary
+ * @apiParam {String} city
+ * @apiParam {String} startDate
+ * @apiParam {String} endDate
+*/
+router.post('/generate', function(req, res, next) {
+  scheduler(new Date(req.body.startDate), new Date(req.body.endDate),
+    req.body.city, function(err, body) {
+      if (err)
+        return next(err);
+      res.json(body);
+    });
 });
 
 /**
