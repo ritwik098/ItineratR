@@ -122,7 +122,8 @@ function schedule(start, end, city, cb) {
                 address: p.formatted_address,
                 startTime: oldTime,
                 endTime: endTime,
-                rating: p.rating
+                rating: p.rating,
+                photo_reference: p.photo_reference
               }
               results.push(place);
             }
