@@ -74,9 +74,20 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
+function getPicture(cityName,cb){
+	var url = "https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase="+cityName;
+	request({ url: url }, function(err, response, body) {
+	    //console.log(body);
+	    var b = JSON.parse(body);
+	    console.log(b);
+	    cb(err,b);
+	});
+}
+
 module.exports = {
   calculateDistance : calculateDistance,
   getPointsOfInterest : getPointsOfInterest,
   getCoordinatesOfCity : getCoordinatesOfCity,
-  getPlaceInfo : getPlaceInfo
+  getPlaceInfo : getPlaceInfo,
+  getPicture : getPicture
 }
