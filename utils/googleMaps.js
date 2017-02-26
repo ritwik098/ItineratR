@@ -5,7 +5,7 @@ var sitaAirportKey = require('../config/config.js').sitaAirportKey;
  * Pass in query parameters as the first parameter
  * Callback takes an error and a body as arguments
  */
-function getCoordinatesOfCity(airportName,cb){
+function getCoordinatesOfCity(airportName,cb) {
 	var url = "https://airport.api.aero/airport/"+airportName;
 	request({ url: url, qs: {user_key : sitaAirportKey} }, function(err, response, body) {
 	    console.log(body);
@@ -14,7 +14,23 @@ function getCoordinatesOfCity(airportName,cb){
 	    	lng : body.airports[0].lng 
 	    }
 	    cb(err,res);
+	});
+}
 
+function getCoordinates(address, cb) {
+	var url = 'https://maps.googleapis.com/maps/api/geocode/json';
+	var properties = {
+		address: address,
+		key: googleMapsKey
+	}
+	request({ url: url, qs: properties, json: true }, function(err, response, body) {
+		//console.log(err)
+		//console.log(response)
+		//console.log(body)
+		if (body.results == undefined || body.results.length == 0)
+    	return cb({ message: 'Location not found' });
+    var loc = body.results[0].geometry.location;
+    cb(err, loc);
 	});
 }
 
@@ -32,19 +48,26 @@ function getPlaceInfo(airportName,cb){
 	});
 }
 
-function getPointsOfInterest(properties,cb){
-	
+function getPointsOfInterest(properties,cb) {
 	var url = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 	var qr = {
-		query : "points of interest in "+properties.cityName,
+		query : "tourist attractions or points of interest in "+properties.cityName,
 		key : googleMapsKey
 	}
-	request({ url: url, qs: qr }, function(err, response, body) {
-	    console.log(body);
-	    
+
+	request({ url: url, qs: qr, json: true }, function(err, response, body) {
+	    console.log(body.results.length);
 	    cb(err,body);
 	});
-	
+}
+
+function getResturaunts(properties, cb) {
+	var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+	properties.key = googleMapsKey;
+	properties.type = 'restaurant';
+	request({ url: url, qs: properties, json: true }, function(err, response, body) {
+		cb(err, body);
+	});
 }
 
 function calculateDistance(obj1,obj2){
@@ -88,6 +111,8 @@ module.exports = {
   calculateDistance : calculateDistance,
   getPointsOfInterest : getPointsOfInterest,
   getCoordinatesOfCity : getCoordinatesOfCity,
-  getPlaceInfo : getPlaceInfo,
-  getPicture : getPicture
+  getPicture : getPicture,
+  getCoordinates: getCoordinates,
+  getResturaunts: getResturaunts,
+  getPlaceInfo : getPlaceInfo
 }
