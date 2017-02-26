@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",
+    "fs": "0.0.1-security",
     "http": "0.0.0",
     "jade": "~1.11.0",
     "mongoose": "^4.8.4",
