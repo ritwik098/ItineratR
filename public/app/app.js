@@ -21,6 +21,7 @@
     .controller("HomeCtrl", function($scope, $rootScope, $location, $http) {
     	this.minDate = new Date();
     	this.budget = 500;
+    	this.loading = false;
     	$scope.$on('lat', function(response) {
 			this.lat = response;
 		});
@@ -28,29 +29,55 @@
 			this.lon = response;
 		});
   		$scope.gPlace;
+
   		this.submit = function(){
-  			console.log("budget: "+this.budget);
+  			this.loading = true;
   			console.log($rootScope.details);
-  			$http({
+  			var req = {
+  					"origin": $rootScope.details[0],
+				   	"departure": this.startDate.toISOString().substring(0, 10),
+				   	"duration": (this.endDate - this.startDate)/86400000,
+				   	"max_price": this.budget
+				   };
+			console.log(req);
+
+			$http.post('/api/sendTravelInformation', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        this.loading = false;
+				        $location.path("/places");
+
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        // called asynchronously if an error occurs
+				        // or server returns response with an error status.
+				      });
+
+  			/*$http({
 			  method: 'GET',
 			  url: 'http://iatageo.com/getCode/'+$rootScope.details[3]+'/'+$rootScope.details[4]
 			}).then(function successCallback(response) {
-				   console.log(response);
 				   var iata = response.data.IATA;
-				   console.log(iata);
-				   
-				   $http({
-					  method: 'GET',
-					  url: '/api/sendTravelInformation'
-					}).then(function successCallback(response) {
-						   
-					}, function errorCallback(response) {
+				   req.origin = iata;
+				   console.log(req);
 
-					});
+
+					$http.post('/api/sendTravelInformation', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        // called asynchronously if an error occurs
+				        // or server returns response with an error status.
+				      });
 
 			  }, function errorCallback(response) {
 			   		console.log(response);
-			  });
+			  });*/
   		};
 	})
 

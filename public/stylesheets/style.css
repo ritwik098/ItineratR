@@ -47,6 +47,10 @@ strong{
 	font-size: 1.2em;
 }
 
+md-progress-circular.md-accent path{
+	stroke: rgb(255,255,255) !important;
+}
+
 .demo-layout-transparent {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/bg.jpg') center / cover;
 
