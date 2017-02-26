@@ -34,6 +34,20 @@ function getCoordinates(address, cb) {
 	});
 }
 
+function getPlaceInfo(airportName,cb){
+	var url = "https://airport.api.aero/airport/"+airportName;
+	request({ url: url, qs: {user_key : sitaAirportKey} }, function(err, response, body) {
+	  	var b = JSON.parse(body);
+	    console.log(b);
+	    var res = { 
+	    	city : b.airports[0].city,
+	    	country : b.airports[0].country 
+	    }
+	    cb(err,res);
+
+	});
+}
+
 function getPointsOfInterest(properties,cb) {
 	var url = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 	var qr = {
@@ -60,5 +74,6 @@ module.exports = {
   getPointsOfInterest : getPointsOfInterest,
   getCoordinatesOfCity : getCoordinatesOfCity,
   getCoordinates: getCoordinates,
-  getResturaunts: getResturaunts
+  getResturaunts: getResturaunts,
+  getPlaceInfo : getPlaceInfo
 }
