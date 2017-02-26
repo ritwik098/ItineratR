@@ -14,9 +14,7 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 	var org = '';
 	var imgurl;
 	var city = req.body.origin;
-	scrapeImage(city,(err,image)=>{
-		imgurl = image.url;
-	});
+	
 	for(var i = 0; i< iataDatabase.response.length; i++){
 		
 		if((iataDatabase.response[i].name).localeCompare(req.body.origin) == 0){
@@ -47,7 +45,7 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 			for(var i = 0; i < data.results.length;i++){
 				
 				var minHotelCost = 80*prop.duration;
-				if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100)> (prop.max_price - data.results[i].price + 76*prop.duration)){
+				if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100) > (prop.max_price - data.results[i].price + 76*prop.duration)){
 					var json = data.results[i];
 					//console.log(data.results[i].destination);
 					var b = iataDatabase;
@@ -56,11 +54,10 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 						if((b.response[index].code).localeCompare(data.results[i].destination)== 0){
 							json.city = b.response[index].name;
 							json.country = b.response[index].country_code;
-							
-							json.imgurl = imgurl;
+							console.log(json.city);
+							json.departingCode = org;
 							finalListOfPlaces.push(json);
-							console.log(finalListOfPlaces[i]);
-								
+							console.log(json);
 						}
 						//console.log(iataDatabase[index].code);
 					}
@@ -72,6 +69,15 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 		}
 		
 	});
+});
+
+router.post('/api/getImage',function(req,res,next){
+	var name = req.body.city;
+	scrapeImage(name,(err,data)=>{
+		console.log(data);
+		res.send(data);
+	});
+
 });
 
 /* GET home page. */
