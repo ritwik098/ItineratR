@@ -6,6 +6,7 @@ var should = chai.should();
 var amadeus = require('../utils/amadeus');
 var gmaps = require('../utils/googleMaps');
 var yelp = require('../utils/yelp');
+var azureML = require('../utils/azureml');
 
 chai.use(chaiHttp);
 
@@ -69,6 +70,17 @@ describe('Google Places API functions', function() {
       location: 'New York City'
     }, function(err, body) {
       //console.log(body);
+      done();
+    });
+  });
+});
+
+describe('Microsoft Azure ML', function() {
+  it('should get a prediction from azure', function(done) {
+    azureML.predictCities({ age: 31, groupSize: 2 }, function(err, body) {
+      console.log(err);
+      console.log(body);
+      console.log(body.Results);
       done();
     });
   });
