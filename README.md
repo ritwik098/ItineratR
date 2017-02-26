@@ -23,8 +23,8 @@ For the database, we are using [MongoDB](https://docs.mongodb.com/manual/install
 Once all the above dependencies have been met, run the following to start the server on port 3000
 
 ```sh
-npm install
-npm start
+$ npm install
+$ npm start
 ```
 
 navigate to [localhost:3000](localhost:3000) to test out the website
@@ -33,15 +33,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Built With
 
-[Node.js](https://nodejs.org/en/)
-[Microsoft Azure](https://azure.microsoft.com/en-us/downloads/)
-[AngularJS](https://docs.angularjs.org/misc/started)
-[MongoDB](https://docs.mongodb.com/manual/installation/)
-[Amadeus API](https://sandbox.amadeus.com/api-catalog)
-[Google Maps API](https://developers.google.com/api-client-library/python/start/installation)
-[Google Place API](https://developers.google.com/places/ios-api/start)
-[Yelp API](https://www.yelp.com/developers/documentation/v2/overview)
-[SITA AIRPORT API](https://www.developer.aero/Airport-API/API-Overview)
+ - [Node.js](https://nodejs.org/en/)
+ - [Microsoft Azure](https://azure.microsoft.com/en-us/downloads/)
+ - [AngularJS](https://docs.angularjs.org/misc/started)
+ - [MongoDB](https://docs.mongodb.com/manual/installation/)
+ - [Amadeus API](https://sandbox.amadeus.com/api-catalog)
+ - [Google Maps API](https://developers.google.com/api-client-library/python/start/installation)
+ - [Google Place API](https://developers.google.com/places/ios-api/start)
+ - [Yelp API](https://www.yelp.com/developers/documentation/v2/overview)
+ - [SITA AIRPORT API](https://www.developer.aero/Airport-API/API-Overview)
 
 ## Running the tests
 Make sure [mocha](https://mochajs.org/) is installed on your machine. You can install with
@@ -83,5 +83,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* We would like to thank the Hack Illinois staff for a great hackathon
+* We would like to thank the Hack Illinois staff for a great hackathon and inspiring the creation of many open-source projects like this one.
 * A special thank you to the mentors for all their help
