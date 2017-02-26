@@ -144,4 +144,13 @@ input[google-place]:-ms-input-placeholder {
 	height: 80px;
 }
 
+.it_details{
+	max-height: 100%;
+	overflow: scroll;
+}
+
+.hotel_details{
+	max-height: 40%;
+	overflow: scroll;
+}
 

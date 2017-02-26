@@ -1,25 +1,24 @@
 <div ng-controller="PlaceCtrl as placeCtrl">
 <div class="place_container" id="bgcontainer">
-    <md-toolbar class="md-hue-2 transparent" flex flex="100">
+    <!--<md-toolbar class="md-hue-2 transparent" flex flex="100">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                 <i class="material-icons" style="color: #f0f0f0">menu</i>
             </md-button>
             <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
         </div>
-    </md-toolbar>
-    <div layout="row" layout-fill layout-align="space_around start">
+    </md-toolbar>-->
+    <div layout="row" layout-fill layout-align="center start">
         <div layout="column" flex flex="50">
             <h1 class="place_title">{{city.city}}</h1>
-            <br>
-            <md-card>
+            <md-card class="flight_details">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Your Flight</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <div class="flight_details" layout="row" layout-align="space-between center">
+                    <div  layout="row" layout-align="space-between center">
                         <div flex="35">
                             <h2>{{placeCtrl.airline}}</h2>
                             <p>Departing: {{placeCtrl.depDate}}</p>
@@ -47,14 +46,14 @@
                     <md-button>Get more options</md-button>
                 </md-card-actions>
             </md-card>
-            <md-card>
+            <md-card class="hotel_details">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Your Stay</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <div class="hotel_details" layout="row" layout-align="space-between center">
+                    <!--<div class="hotel_details" layout="row" layout-align="space-between center">
                         <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
                         </div>
                         <div flex="65" style="margin-left: 1em;">
@@ -63,44 +62,31 @@
                             <p>Address: 905 California St, San Francisco, CA 94108</p>
 							<p>Phone:(415) 989-3500</p>
                         </div>
-                    </div>
-                    <div class="hotel_details" layout="row" layout-align="space-between start">
-                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
-                        </div>
-                        <div flex="65" style="margin-left: 1em;">
-                            <h2>Stanford Court Hotel</h2>
-                            <p>4 star</p>
-                            <p>Address: 905 California St, San Francisco, CA 94108</p>
-							<p>Phone:(415) 989-3500</p>
-                        </div>
-                    </div>
-                    <div class="hotel_details" layout="row" layout-align="space-between start">
-                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
-                        </div>
-                        <div flex="65" style="margin-left: 1em;">
-                            <h2>Stanford Court Hotel</h2>
-                            <p>4 star</p>
-                            <p>Address: 905 California St, San Francisco, CA 94108</p>
-							<p>Phone:(415) 989-3500</p>
-                        </div>
+                    </div>-->
+                    <div  layout="column" layout-align="center center" ng-repeat="hotel in hotels">
+                        <!--<div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>-->
+                            <h2>{{hotel.property_name}}</h2>
+                            <p>{{hotel.address.line1}}, {{hotel.address.city}}, {{hotel.address.region}}</p>
+                            <p>Price per night: ${{hotel.min_daily_rate.amount}} | Total price: ${{hotel.total_price.amount}}</p>
+							<p>Phone:{{hotel.contacts[0].detail}}</p>
                     </div>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button>Action 1</md-button>
-                    <md-button>Action 2</md-button>
-                </md-card-actions>
+                
             </md-card>
         </div>
-        <md-card flex flex="50">
+        <div layout="column" flex flex="50">
+            <!--<h1 class="place_title">{{city.city}}</h1>-->
+        <md-card class="it_details">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">Itinerary</span>
-                    <span class="md-subhead">4 days 3 nights</span>
+                    <!--<span class="md-subhead">4 days 3 nights</span>-->
                 </md-card-title-text>
             </md-card-title>
 
                 <md-card-content>
-                    <div class="it_details" layout="row" layout-align="space-between center" ng-repeat="place in itinerary" ng-if="place.day > placeCtrl.currentDay" ng-init="incDay()">
+                    <div layout="row" layut-align="space-between center" ng-repeat="place in itinerary" ng-if="place.day > placeCtrl.currentDay" ng-init="incDay()">
                         <div layout="column">
 
 	                        <div layout="row" layout-align="space-between center">
@@ -122,11 +108,8 @@
                         </div>
                     </div>
                 </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>Action 1</md-button>
-                <md-button>Action 2</md-button>
-            </md-card-actions>
         </md-card>
+        </div>
     </div>
 </div>
 </div>

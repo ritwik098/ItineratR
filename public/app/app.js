@@ -145,6 +145,9 @@
 					        $scope.bgUrl = data.url;
 					        var myEl = angular.element( document.querySelector( '#bgcontainer' ) );
 							myEl.css('background-image','url("'+data.url+'")');
+
+							var bgScope = angular.element( document.querySelector( '.ng-scope' ) );
+							bgScope.css('height','100%');
 						}
 				      }).
 				      error(function(data, status, headers, config) {
@@ -208,7 +211,7 @@
 				    success(function(data, status, headers, config) {
 				        // this callback will be called asynchronously
 				        // when the response is available
-				        $scope.hotels = data;
+				        $scope.hotels = data.results;
 				        console.log(data);
 				      }).
 				      error(function(data, status, headers, config) {
