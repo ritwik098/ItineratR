@@ -178,19 +178,43 @@
 			return new Date(date);
 		};
 		this.checkDay = function(date){
-			console.log("day: "+ (new Date(date).getDate() - req.startDate.getDate() + 1));
-			console.log("startdate "+ req.startDate.getDate());
-			console.log("placedate "+ new Date(date).getDate());
-			console.log("currentDay"+this.currentDay);
-			if(new Date(date).getDate() - req.startDate.getDate() + 1 > this.currentDay){
+			if(date>this.currentDay){
 				this.currentDay+=1;
-				return true;
-			} else {
-				return false;
+				return 1;
+			} else{
+				return 0;
 			}
 		};
 
+		this.getTime = function(time){
+			var date = new Date(time);
+		    var localeSpecificTime = date.toLocaleTimeString();
+		    return localeSpecificTime.replace(/:\d+ /, ' ');		
+		};
+
+		this.incDay = function(){
+			this.currentDay++;
+		};
+
 		this.currentDay = 0;
+
+		var hotelReq = {
+			"lat": $rootScope.details[3],
+			"lng": $rootScope.details[4],
+			"check_in": req.startDate.toISOString().substring(0, 10),
+			"check_out": req.endDate.toISOString().substring(0, 10)
+		};
+		$http.post('/api/sendHotels', hotelReq).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.hotels = data;
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(hotelReq);
+				      });
 	})
 
 
