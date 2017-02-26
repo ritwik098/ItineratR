@@ -17,13 +17,18 @@ function daysBetween(firstDate, secondDate) {
   return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 }
 
-function parseYelp(obj, st, et) {
+function parseYelp(obj, st, et, startTime) {
+  if (obj == undefined)
+    return null;
   var res = {
     name: obj.name,
     address: obj.location.display_address.join(', '),
     startTime: st,
     endTime: et,
-    imageUrl: obj.image_url
+    imageUrl: obj.image_url,
+    rating: obj.rating,
+    phone: obj.phone,
+    day: daysBetween(st, startTime) + 1
   }
   return res;
 }
@@ -74,28 +79,31 @@ function schedule(start, end, city, cb) {
             var st = mToDate(curTime);
             curTime.add(45 + ~~(Math.random()*3)*15, 'm');
             var et = mToDate(curTime);
-            var r = parseYelp(resturaunts.pop(), st, et);
+            var r = parseYelp(resturaunts.pop(), st, et, start);
             curTime.add(30, 'm');
-            results.push(r);
+            if (r)
+              results.push(r);
           }
           else if (hour >= 18 && hour <= 21 && !meals.dinner) {
             meals.dinner = 1;
             var st = mToDate(curTime);
             curTime.add(45 + ~~(Math.random()*4)*15, 'm');
             var et = mToDate(curTime);
-            var r = parseYelp(resturaunts.pop(), st, et);
+            var r = parseYelp(resturaunts.pop(), st, et, start);
             curTime.add(30, 'm');
-            results.push(r);
+            if (r)
+              results.push(r);
           }
           else if (hour >= 21) {
             var st = mToDate(curTime);
             var et = moment(curTime)
             et.add(45 + ~~(Math.random()*3)*15, 'm')
             et = mToDate(et);
-            var b = parseYelp(bars.pop(), st, et);
+            var b = parseYelp(bars.pop(), st, et, start);
             curTime.add(5, 'h');
             curTime.hour(10);
-            results.push(b);
+            if (b)
+              results.push(b);
             meals.lunch = 0;
             meals.dinner = 0;
           }
@@ -108,14 +116,20 @@ function schedule(start, end, city, cb) {
             curTime.add(90 + ~~(Math.random()*8)*15, 'm');
             var endTime = mToDate(curTime);
             curTime.add(30, 'm');
-            var place = {
-              name: p.name,
-              imageUrl: p.icon,
-              address: p.formatted_address,
-              startTime: oldTime,
-              endTime: endTime
+            if (p) {
+              var place = {
+                name: p.name,
+                imageUrl: p.icon,
+                address: p.formatted_address,
+                startTime: oldTime,
+                endTime: endTime,
+                rating: p.rating,
+                day: daysBetween(start, oldTime) + 1
+              }
+              if (p.photos && p.photos.length > 0 && p.photos[0].photo_reference)
+                place.photo_reference = p.photos[0].photo_reference
+              results.push(place);
             }
-            results.push(place);
           }
         }
         cb(null, results);

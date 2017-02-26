@@ -1,3 +1,3 @@
 # Contributors
 
-Ritwik Bhardwaj, Jonathan Xu, Nisarg Kolhe, Rahul Surti, Sabharsh Singh, and Nisarg Kolhe all contributed to ItenaratR.
+Ritwik Bhardwaj, Jonathan Xu, Nisarg Kolhe, Rahul Surti, Sabharsh Singh, and Nisarg Kolhe all contributed to ItineratR.
