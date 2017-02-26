@@ -1,8 +1,3 @@
-/*
- * This file serves as an interface between our code and the api calls for
- * the Amadeus travel data
- */
-
 var request = require('request');
 var http = require('http');
 
@@ -28,7 +23,7 @@ function hotelSearch(properties, cb){
  		var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport'
  		request({ url: url, qs: properties }, function(err, response, body) {
 		    var b = JSON.parse(body);
-		    console.log(b);
+		    //console.log(b);
 		    cb(err,b);
 		});
 }

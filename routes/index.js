@@ -3,48 +3,49 @@ var path = require('path');
 var amadeus = require('../utils/amadeus.js');
 var google = require('../utils/googleMaps.js');
 var router = express.Router();
-var iataDatabase = require('../utils/iata.js').iataDatabase;
+var iataDatabase = require('../utils/iata.js').data;
+var fs = require('fs');
+var bodyParser = require('body-parser');
+
+
 
 router.post('/api/sendTravelInformation',function(req,res,next){
 	var finalListOfPlaces = [];
 	var prop = {
-		origin : "BOS",
-		departure : "2017-03-15",
-		duration : 4,
-		max_price : 450
+		origin : req.body.origin,
+		departure : req.body.departure,
+		duration : req.body.duration,
+		max_price : req.body.max_price
 	}
 	var totalBudget = prop.max_price;
 	prop.max_price -= prop.duration*51; 
 	amadeus.flightSearch(prop,(err,data)=>{
-
+		if(err){
+			res.send(err);
+		}
 		//console.log(data.origin);
-		data.results.forEach(function(value,i,array){
-			var hotelBody = {
-				location : data.results[i].destination,
-				check_in : data.results[i].departure_date,
-				check_out : data.results[i].return_date,
-				radius : '42',
-				number_of_results : '5'
-			};
+		for(var i = 0; i < data.results.length;i++){
 			
 			var minHotelCost = 80*prop.duration;
 			if( (minHotelCost + (18*prop.duration))+ (prop.duration*(minHotelCost + (18*prop.duration))/100)> (prop.max_price - data.results[i].price + 96*prop.duration)){
 				var json = data.results[i];
-				console.log(data.results[i].destination);
-				iataDatabase.forEach(function(val,index,arr){
-
-				})
-					json.city = info.city;
-					json.country = info.country;
-					finalListOfPlaces.push(json);
-					console.log(json);
-				
-				
-
-				
+				//console.log(data.results[i].destination);
+				var b = iataDatabase;
+				for(var index = 0; index< b.response.length; index++){
+					//console.log((iataDatabase[i].code).localeCompare(data.results[i].destination));
+					if((b.response[index].code).localeCompare(data.results[i].destination)== 0){
+						json.city = b.response[index].name;
+						json.country = b.response[index].country_code;
+						finalListOfPlaces.push(json);
+						console.log(finalListOfPlaces[i]);
+					}
+					//console.log(iataDatabase[index].code);
+				}
+						
 			}
 			
-		});
+		}
+		res.send(JSON.stringify(finalListOfPlaces));
 	});
 });
 
