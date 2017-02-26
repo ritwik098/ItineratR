@@ -18,6 +18,8 @@ function daysBetween(firstDate, secondDate) {
 }
 
 function parseYelp(obj, st, et) {
+  if (obj == undefined)
+    return null;
   var res = {
     name: obj.name,
     address: obj.location.display_address.join(', '),
@@ -76,7 +78,8 @@ function schedule(start, end, city, cb) {
             var et = mToDate(curTime);
             var r = parseYelp(resturaunts.pop(), st, et);
             curTime.add(30, 'm');
-            results.push(r);
+            if (r)
+              results.push(r);
           }
           else if (hour >= 18 && hour <= 21 && !meals.dinner) {
             meals.dinner = 1;
@@ -85,7 +88,8 @@ function schedule(start, end, city, cb) {
             var et = mToDate(curTime);
             var r = parseYelp(resturaunts.pop(), st, et);
             curTime.add(30, 'm');
-            results.push(r);
+            if (r)
+              results.push(r);
           }
           else if (hour >= 21) {
             var st = mToDate(curTime);
@@ -95,7 +99,8 @@ function schedule(start, end, city, cb) {
             var b = parseYelp(bars.pop(), st, et);
             curTime.add(5, 'h');
             curTime.hour(10);
-            results.push(b);
+            if (b)
+              results.push(b);
             meals.lunch = 0;
             meals.dinner = 0;
           }
