@@ -123,7 +123,7 @@ function schedule(start, end, city, cb) {
                 startTime: oldTime,
                 endTime: endTime,
                 rating: p.rating,
-                photo_reference: p.photo_reference
+                photo_reference: p.photos[0].photo_reference
               }
               results.push(place);
             }
