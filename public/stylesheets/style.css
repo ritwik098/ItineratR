@@ -95,3 +95,83 @@ input[google-place]::-moz-placeholder {
 input[google-place]:-ms-input-placeholder {
     opacity: 0;
 }
+
+.custom-marker {
+      }
+      .custom-marker.my1 {
+        font-size: 1.5em;
+        background: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: #7F7F7F solid 1px;
+        max-width: 200px;
+        height: 100px;
+      }
+
+      .custom-marker.my1:after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 7px 6px 0;
+        border-color: #fff transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+        margin-left: -6px;
+        bottom: -6px;
+        left: 50%;
+      }
+
+      .custom-marker.my1:before {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 7px 6px 0;
+        border-color: #7F7F7F transparent;
+        display: block;
+        width: 0;
+        z-index: 0;
+        margin-left: -6px;
+        bottom: -7px;
+        left: 50%;
+      }
+
+      .custom-marker.my2 {
+        font-size: 1.5em;
+        padding: 10px;
+        background: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: #7F7F7F solid 1px;
+        background: red;
+      }
+
+      .custom-marker.my2:after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 7px 6px 0;
+        border-color: red transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+        margin-left: -6px;
+        bottom: -6px;
+        left: 50%;
+      }
+
+      .custom-marker.my2:before {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 7px 6px 0;
+        border-color: #7F7F7F transparent;
+        display: block;
+        width: 0;
+        z-index: 0;
+        margin-left: -6px;
+        bottom: -7px;
+        left: 50%;
+      }
