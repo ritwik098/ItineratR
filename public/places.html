@@ -8,10 +8,9 @@
             </div>
         </md-toolbar>
           <ng-map zoom="3" style="height:95%; width: 100%;">
-                 <custom-marker ng-repeat="city in placesCtrl.cities" position="{{city.city}}, {{city.country}}">
+                 <custom-marker ng-repeat="city in cities" position="{{city.city}}, {{city.country}}">
                   <div class="location_card">
                   <md-card style="padding: 0">
-                    <img ng-src="{{city.imgurl}}" class="md-card-image" alt="Washed Out">
                     <!--<md-card-title>
                       <md-card-title-text>
                         <span class="md-headline">{{city.city}}</span>

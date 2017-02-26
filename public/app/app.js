@@ -21,6 +21,23 @@
 
 	})
 
+	.factory('p', ['$http', function ($http) {
+	    return {
+	      getImage: function (city) {
+
+	        var promise = $http({method:'POST', url:'/api/getImage', data: {"city":city}})
+			    .success(function (data, status, headers, config) {
+			      return data.url;
+			    })
+			    .error(function (data, status, headers, config) {
+			      return {"status": false};
+			    });
+
+			  return promise;
+	      }
+	    };
+	  }])
+
     .controller("HomeCtrl", function($scope, $rootScope, $location, $http, $mdDialog) {
     	this.minDate = new Date();
     	this.budget = 1000;
@@ -73,10 +90,20 @@
 	    };
   	})
 
-	.controller('PlacesCtrl', function(NgMap, $scope, $rootScope, $location) {
+	.controller('PlacesCtrl', function(NgMap, $scope, $rootScope, $location, p) {
 		$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQHc8aZoBXkQumkO4xpqYxklRj2RG9Lb8";
-		
-		this.cities = $rootScope.places;
+		$scope.cities = $rootScope.places;
+		/*for (let city of $rootScope.places){
+			(function(city) {
+				 return function() {
+					p.getImage(city.city).then(function(promise) {
+						console.log(promise);
+						city.imgurl = promise.data.url;
+						$scope.cities.push(city);
+					});	
+				};	
+			})(city);	
+		}*/
 		if($rootScope.places.length < 1){
 			$location.path("/");
 		}
@@ -94,15 +121,52 @@
 	  });
 	})
 
-	.controller('PlaceCtrl', function($scope, $rootScope, $location) {
+	.controller('PlaceCtrl', function($scope, $rootScope, $location, $http) {
 		this.city = $rootScope.city;
 		this.depDate = new Date($rootScope.city.departure_date).toLocaleDateString();
 		this.returnDate = new Date($rootScope.city.return_date).toLocaleDateString();
 		this.price = Math.round($rootScope.city.price);
-		this.bgUrl = $rootScope.city.imgurl;
+		$scope.bgUrl;
+		var req = {
+			"city" : this.city.city
+		};
+
+		if(this.city.country === "IN"){
+			req.city = "India";
+		}
+
+		$http.post('/api/getImage', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.bgUrl = data.url;
+				        var myEl = angular.element( document.querySelector( '#bgcontainer' ) );
+							myEl.css('background-image','url("'+data.url+'")');
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				      });
 		this.airline = $rootScope.city.airline;
 		this.destCode = $rootScope.city.destination;
+		this.deptCode = $rootScope.city.departingCode;
+
+		req.city = $rootScope.city.city;
+		req.startDate = new Date($rootScope.city.departure_date);
+		req.endDate = new Date($rootScope.city.return_date);
+		$scope.itinerary;
+		$http.post('/api/itinerary/generate', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.itinerary = data;
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(req);
+				      });
 	})
+
 
 	.directive('googleplace', [ function() {
     return {
@@ -151,5 +215,4 @@
     };
 	}]);
 	
-
 })();
