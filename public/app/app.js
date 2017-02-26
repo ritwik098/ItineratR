@@ -1,5 +1,5 @@
 (function() {
-    angular.module('myapp', ['ngRoute','ngMaterial'])
+    angular.module('myapp', ['ngRoute','ngMaterial', 'ngMap'])
     .config(function($mdThemingProvider,$routeProvider,$locationProvider) {
 	  $mdThemingProvider.theme('default')
 	    .primaryPalette('light-blue');
@@ -21,8 +21,6 @@
     .controller("HomeCtrl", function($scope, $rootScope, $location, $http) {
     	this.minDate = new Date();
     	this.budget = 500;
-    	this.lat;
-    	this.lon;
     	$scope.$on('lat', function(response) {
 			this.lat = response;
 		});
@@ -40,7 +38,7 @@
 				   console.log(response);
 				   var iata = response.data.IATA;
 				   console.log(iata);
-
+				   
 				   $http({
 					  method: 'GET',
 					  url: '/api/sendTravelInformation'
@@ -66,6 +64,39 @@
 
 	    };
   	})
+
+	.controller('PlacesCtrl', function(NgMap, $scope) {
+		$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQHc8aZoBXkQumkO4xpqYxklRj2RG9Lb8";
+		this.cities = [
+		{ 
+		destination: 'SLC',
+		 departure_date: '2017-05-03',
+		 return_date: '2017-05-07',
+		 price: '222.40',
+		 airline: 'DL',
+		 city: 'Salt Lake City',
+		 country: 'US',
+		 lat: 40.7767833,
+		 lon: -112.0605697
+		},
+		 { destination: 'SRQ',
+		 departure_date: '2017-04-29',
+		 return_date: '2017-05-03',
+		 price: '223.60',
+		 airline: 'DL',
+		 city: 'Sarasota',
+		 country: 'US',
+		 lat: 27.3411408,
+		 lon: -82.5688899
+		}
+		];
+		$scope.click = function() {console.log('click')};
+	  NgMap.getMap().then(function(map) {
+	    console.log(map.getCenter());
+	    console.log('markers', map.markers);
+	    console.log('shapes', map.shapes);
+	  });
+	})
 
 	.directive('googleplace', [ function() {
     return {

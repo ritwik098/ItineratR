@@ -5,7 +5,7 @@ var google = require('../utils/googleMaps.js');
 var router = express.Router();
 var iataDatabase = require('../utils/iata.js').iataDatabase;
 
-router.post('/sendTravelInformation',function(req,res,next){
+router.post('/api/sendTravelInformation',function(req,res,next){
 	var finalListOfPlaces = [];
 	var prop = {
 		origin : "BOS",
