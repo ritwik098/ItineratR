@@ -56,10 +56,19 @@ describe('Google Places API functions', function() {
   it('should get yelp recommendations', function(done) {
     this.timeout(5000);
     yelp.getResturaunts({
-      term: 'Lunch',
       location: 'New York City'
     }, function(err, body) {
-      console.log(body);
+      //console.log(body);
+      done();
+    });
+  });
+
+  it('should get yelp recommendations for bars', function(done) {
+    this.timeout(5000);
+    yelp.getBars({
+      location: 'New York City'
+    }, function(err, body) {
+      //console.log(body);
       done();
     });
   });

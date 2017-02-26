@@ -15,22 +15,29 @@ var amadeusKey = require('../config/config.js').amadeusKey;
 function flightSearch(properties, cb) {
   var url = 'https://api.sandbox.amadeus.com/v1.2/flights/inspiration-search';
   properties.apikey = amadeusKey;
-  request({ url: url, qs: properties }, function(err, response, body) {
-  	var b = JSON.parse(body);
-    cb(err, b);
+  request({ url: url, qs: properties, json: true }, function(err, response, body) {
+    cb(err, body);
   });
 }
 
 function hotelSearch(properties, cb) {
     properties.apikey = amadeusKey;
-    var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-circle'
+    var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-circle';
     request({ url: url, qs: properties, json: true }, function(err, response, body) {
-      console.log(b);
-      cb(err,b);
+      cb(err, body);
     });
+}
+
+function pointsOfInterest(properties, cb) {
+  properties.apikey = amadeusKey;
+  var url = 'https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text';
+  request({ url: url, qs: properties, json: true }, function(err, response, body) {
+    cb(err, body);
+  });
 }
 
 module.exports = {
   flightSearch: flightSearch,
-  hotelSearch : hotelSearch
+  hotelSearch : hotelSearch,
+  pointsOfInterest: pointsOfInterest
 }

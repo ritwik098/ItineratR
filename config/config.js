@@ -1,8 +1,8 @@
 module.exports = {
   amadeusKey: '***REMOVED***',
-  googleMapsKey: 'AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
+  googleMapsKey: 'AIzaSyAkbHjDF-Mp-tQR7DefDW_OSSTZUmcTfdQ',
   sitaAirportKey: '***REMOVED***',
-  googlePlacesKey: 'AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
+  googlePlacesKey: ' AIzaSyAkbHjDF-Mp-tQR7DefDW_OSSTZUmcTfdQ',
   mongoConnection: '***REMOVED***',
   yelp: {
     consumerKey: '***REMOVED***',
