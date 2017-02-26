@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var azureml = require('../../utils/azureml');
+
 var User = require('../../models/User');
 
 /**
@@ -43,6 +45,12 @@ router.post('/login', function(req, res, next) {
         "user": user
       });
     });
+});
+
+
+
+router.post('/recommendcity', function(req, res, next) {
+  res.send('');
 });
 
 router.use('/users', require('./users'));

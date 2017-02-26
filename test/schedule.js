@@ -9,7 +9,7 @@ describe('Scheduler', function() {
     var now = new Date();
     var then = new Date();
     then.setDate(then.getDate() + 3);
-    schedule(now, then, 'Helsinki', function(err, body) {
+    schedule(now, then, 'New York', function(err, body) {
       console.log(err);
       console.log(body);
       body.should.be.a('array');
