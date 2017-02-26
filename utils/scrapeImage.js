@@ -21,14 +21,17 @@ function scrapeImage(cityName,cb){
         var contents = $('article').children().first().children('img').attr('src');
         //console.log(contents);
         var url = '';
-        for(var i=0 ;i<contents.length;i++){
-        	if(contents[i] == '?')
-        		break;
-        	url += contents[i];
+        if(contents == undefined){
+        	cb(error,{url : ''});
         }
-        console.log(url);
-        cb(error,{url : url});
-    
+        else{	        for(var i=0 ;i<contents.length;i++){
+	        	if(contents[i] == '?')
+	        		break;
+	        	url += contents[i];
+	        }
+	        console.log(url);
+	        cb(error,{url : url});
+    	}
       }
     });
 }
