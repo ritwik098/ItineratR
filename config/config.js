@@ -1,9 +1,9 @@
 module.exports = {
   azureKey: '***REMOVED***',
   amadeusKey: '***REMOVED***',
-  googleMapsKey: 'AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
+  googleMapsKey: '***REMOVED***',
   sitaAirportKey: '***REMOVED***',
-  googlePlacesKey: ' AIzaSyBEh4Tpsk7rjTHwz6Jcynv8kzIaOy3VGSU',
+  googlePlacesKey: ' ***REMOVED***',
   mongoConnection: '***REMOVED***',
   yelp: {
     consumerKey: '***REMOVED***',

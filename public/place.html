@@ -1,0 +1,116 @@
+<div ng-controller="PlaceCtrl as placeCtrl">
+<div class="place_container" id="bgcontainer">
+    <!--<md-toolbar class="md-hue-2 transparent" flex flex="100">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                <i class="material-icons" style="color: #f0f0f0">menu</i>
+            </md-button>
+            <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
+        </div>
+    </md-toolbar>-->
+    <div layout="row" layout-fill layout-align="center start">
+        <div layout="column" flex flex="50">
+            <h1 class="place_title">{{city.city}}</h1>
+            <md-card class="flight_details">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Your Flight</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div  layout="row" layout-align="space-between center">
+                        <div flex="35">
+                            <h2>{{placeCtrl.airline}}</h2>
+                            <p>Departing: {{placeCtrl.depDate}}</p>
+                            <p>Returning: {{placeCtrl.returnDate}}</p>
+                            <h3>${{placeCtrl.price}}</h3>
+                        </div>
+                        <div flex="20">
+                            <h1>{{placeCtrl.deptCode}}</h1>
+                            <p>3:40PM</p>
+                            <p>Terminal E</p>
+                        </div>
+                        <div flex="15" flex layout-align="center center">
+                            <i class="material-icons flight_icon">flight</i>
+                        </div>
+                        <div flex="20">
+                            <h1>{{placeCtrl.destCode}}</h1>
+                            <p>4:50PM</p>
+                            <p>Terminal 3</p>
+                        </div>
+                    </div>
+                    
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Book this flight</md-button>
+                    <md-button>Get more options</md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card class="hotel_details">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Your Stay</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <!--<div class="hotel_details" layout="row" layout-align="space-between center">
+                        <div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>
+                        <div flex="65" style="margin-left: 1em;">
+                            <h2>Stanford Court Hotel</h2>
+                            <p>4 star</p>
+                            <p>Address: 905 California St, San Francisco, CA 94108</p>
+							<p>Phone:(415) 989-3500</p>
+                        </div>
+                    </div>-->
+                    <div  layout="column" layout-align="center center" ng-repeat="hotel in hotels"  ng-class="hotel.recommended ? 'recommended' : ''">
+                        <!--<div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
+                        </div>-->
+                            <h2>{{hotel.property_name}}</h2>
+                            <div ng-show="hotel.recommended"><p style="font-size: 0.7em; color: rgb(3,169,244); margin: -10px;">(Recommended)</p></div> 
+                            <p>{{hotel.address.line1}}, {{hotel.address.city}}, {{hotel.address.region}}</p>
+                            <p>Price per night: ${{hotel.min_daily_rate.amount}} | Total price: ${{hotel.total_price.amount}}</p>
+							<p>Phone:{{hotel.contacts[0].detail}}</p>
+                    </div>
+                </md-card-content>
+                
+            </md-card>
+        </div>
+        <div layout="column" flex flex="50">
+            <!--<h1 class="place_title">{{city.city}}</h1>-->
+        <md-card class="it_details">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Itinerary</span>
+                    <!--<span class="md-subhead">4 days 3 nights</span>-->
+                </md-card-title-text>
+            </md-card-title>
+
+                <md-card-content>
+                    <div layout="row" layut-align="space-between center" ng-repeat="place in itinerary" ng-if="place.day > placeCtrl.currentDay" ng-init="incDay()">
+                        <div layout="column">
+
+	                        <div layout="row" layout-align="space-between center">
+	                        	<div layout="column" flex="15" layout-align="center center">
+	                        		<div><i class="material-icons">access_time</i></div>
+	                        		<div>{{placeCtrl.getTime(place.endTime)}}</div>
+	                        	</div>
+		                        <div flex="30" ng-show="place.photo_reference" style="background-image: url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&photoreference={{place.photo_reference}}'); height: 150px; width: 150px;background-size: cover;">
+		                        </div>
+		                        <div flex="30" ng-show="!place.photo_reference" style="background-image: url('{{place.imageUrl}}'); height: 150px; width: 150px; background-size: cover;">
+		                        </div>
+		                        <div flex="55" style="margin-left: 1em;">
+		                            <h2>{{place.name}}</h2>
+		                           	<p>Day {{place.day}}</p>
+		                            <p>{{place.rating}}/5 stars</p>
+		                            <p>Address: {{place.address}}</p>
+		                        </div>
+	                        </div>
+                        </div>
+                    </div>
+                </md-card-content>
+        </md-card>
+        </div>
+    </div>
+</div>
+</div>

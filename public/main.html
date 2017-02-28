@@ -4,11 +4,11 @@
                 <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                     <i class="material-icons" style="color: #f0f0f0">menu</i>
                 </md-button>
-                <h2 flex="" md-truncate="">Itineratr</h2>
+                <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
             </div>
         </md-toolbar>
         <md-content class="transparent">
-            <form name="searchForm">
+            <form name="searchForm" ng-submit="homeCtrl.submit()">
             <div layout="column" layout-align="center center" class="hero_container">
                 <div class="hero_text">
                     <h1>ITINERATR GETS YOU THE ESCAPE YOU <strong>DESERVE</strong></h1>
@@ -22,7 +22,7 @@
                                 <md-icon>
                                     <i class="material-icons">attach_money</i>
                                 </md-icon>
-                                <input ng-model="budget" type="number" step="10" placeholder="500" required>
+                                <input ng-model="homeCtrl.budget" type="number" step="10" placeholder="500" required>
                                 <md-icon>
                                 </md-icon>
                             </md-input-container>
@@ -33,7 +33,7 @@
                                 <md-icon>
                                     <i class="material-icons">location_on</i>
                                 </md-icon>
-                                <input ng-model="chosenPlace" placeholder="Chicago, IL, United States" googleplace required/>
+                                <input ng-model="homeCtrl.chosenPlace" placeholder="Chicago, IL, United States" googleplace required/>
                                 <md-icon>
                                 </md-icon>
                             </md-input-container>
@@ -53,7 +53,10 @@
                     </md-content>
                 </div>
                 <div class="hero_button_container">
-                          <md-button class="md-raised md-primary hero_button">Take me to places!</md-button>
+                          <md-button class="md-raised md-primary hero_button" type='submit' ng-click="submit()">
+                          <div ng-show="!loading">Take me to places!</div>
+                            <md-progress-circular md-mode="indeterminate" class="md-accent" ng-show="loading"></md-progress-circular>
+                          </md-button>
                 </div>
             </div>
             </form>

@@ -33,10 +33,12 @@ router.post('/api/sendTravelInformation',function(req,res,next){
 	prop.max_price -= prop.duration*51; 
 	amadeus.flightSearch(prop,(err,data)=>{
 		if(err){
+			console.log(err);
 			res.sendStatus(400);
 		}
 		//console.log(data.origin);
 		if(data.results == undefined){
+			console.log(data);
 			res.sendStatus(400);
 		}
 		else{

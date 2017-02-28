@@ -1,1 +1,38 @@
-<h1>This is places</h1>
+<div layout="column" layout-fill class="demo-layout-transparent" ng-controller="PlacesCtrl as placesCtrl">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                    <i class="material-icons" style="color: #f0f0f0">menu</i>
+                </md-button>
+                <h2 flex="" md-truncate="" class="logo">ITINERATR</h2>
+            </div>
+        </md-toolbar>
+          <ng-map zoom="3" style="height:95%; width: 100%;">
+                 <custom-marker ng-repeat="city in cities" position="{{city.city}}, {{city.country}}">
+                  <div class="location_card">
+                  <md-card style="padding: 0">
+                    <!--<md-card-title>
+                      <md-card-title-text>
+                        <span class="md-headline">{{city.city}}</span>
+                      </md-card-title-text>
+                    </md-card-title>-->
+                    <md-card-content style="padding: 5px 15px; margin-top: -10px;" layout="column" layout-align="space-around center">
+                        <div><a ng-href="#" ng-click="placesCtrl.goToPlace(city)"><h3>{{city.city}}</h3></a></div>
+                        <div style="color: green; font-size: 1.1em; margin-top: -10px;"><p>${{city.price}}</p></div>
+                    </md-card-content>
+
+                  </md-card>
+                  </div>
+                </custom-marker>
+          </ng-map>
+            <!-- <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                <img ng-src="http://www.ninezero.com/images/1700-960/sailboats-in-boston-0a5755ca.jpg" class="md-card-image" alt="Washed Out">
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline">Vertical action buttons</span>
+                  </md-card-title-text>
+                </md-card-title>
+              </md-card>
+            </div>-->
+    </div>

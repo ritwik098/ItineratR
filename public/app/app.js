@@ -1,6 +1,6 @@
 (function() {
-    angular.module('myapp', ['ngRoute','ngMaterial'])
-    .config(function($mdThemingProvider,$routeProvider) {
+    angular.module('myapp', ['ngRoute','ngMaterial', 'ngMap'])
+    .config(function($mdThemingProvider,$routeProvider,$locationProvider) {
 	  $mdThemingProvider.theme('default')
 	    .primaryPalette('light-blue');
 
@@ -13,13 +13,70 @@
 	    })
 	    .when("/places", {
 	        templateUrl : "places.html"
+	    })
+	    .when("/place", {
+	        templateUrl : "place.html"
 	    });
+	  $locationProvider.html5Mode(true);
+
 	})
 
-    .controller("HomeCtrl", function($scope, $location) {
+	.factory('p', ['$http', function ($http) {
+	    return {
+	      getImage: function (city) {
+
+	        var promise = $http({method:'POST', url:'/api/getImage', data: {"city":city}})
+			    .success(function (data, status, headers, config) {
+			      return data.url;
+			    })
+			    .error(function (data, status, headers, config) {
+			      return {"status": false};
+			    });
+
+			  return promise;
+	      }
+	    };
+	  }])
+
+    .controller("HomeCtrl", function($scope, $rootScope, $location, $http, $mdDialog) {
     	this.minDate = new Date();
-    	this.budget = 500;
+    	this.budget = 1000;
+    	$scope.loading = false;
   		$scope.gPlace;
+
+  		this.submit = function(){
+  			$scope.loading = true;
+  			console.log($rootScope.details);
+  			var req = {
+  					"origin": $rootScope.details[0],
+				   	"departure": this.startDate.toISOString().substring(0, 10),
+				   	"duration": Math.round((this.endDate - this.startDate)/86400000),
+				   	"max_price": this.budget
+				   };
+			console.log(req);
+
+			$http.post('/api/sendTravelInformation', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.loading = false;
+				        $location.path("/places");
+				        $rootScope.places = data;
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	$scope.loading = false;
+				        	$mdDialog.show(
+						      $mdDialog.alert()
+						        .parent(angular.element(document.querySelector('#popupContainer')))
+						        .clickOutsideToClose(true)
+						        .title('Oops! :/')
+						        .textContent('We couldn\'t find locations awesome enough for you! Try searching a location nearby to airport maybe?')
+						        .ok('Okay!')
+						    );
+
+				      });
+	  	};
 	})
 
 	.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
@@ -32,6 +89,167 @@
 
 	    };
   	})
+
+	.controller('PlacesCtrl', function(NgMap, $scope, $rootScope, $location, p) {
+		$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQHc8aZoBXkQumkO4xpqYxklRj2RG9Lb8";
+		$scope.cities = $rootScope.places;
+		/*for (let city of $rootScope.places){
+			(function(city) {
+				 return function() {
+					p.getImage(city.city).then(function(promise) {
+						console.log(promise);
+						city.imgurl = promise.data.url;
+						$scope.cities.push(city);
+					});	
+				};	
+			})(city);	
+		}*/
+		if($rootScope.places.length < 1){
+			$location.path("/");
+		}
+		this.click = function(city) {console.log(city);};
+
+		this.goToPlace= function(city){
+			console.log(city);
+			$rootScope.city = city;
+			$location.path("/place");
+		};
+	  NgMap.getMap().then(function(map) {
+	    console.log(map.getCenter());
+	    console.log('markers', map.markers);
+	    console.log('shapes', map.shapes);
+	  });
+	})
+
+	.controller('PlaceCtrl', function($scope, $rootScope, $location, $http) {
+		this.city = $rootScope.city;
+		this.depDate = new Date($rootScope.city.departure_date).toLocaleDateString();
+		this.depDateObj = new Date($rootScope.city.departure_date);
+		this.returnDate = new Date($rootScope.city.return_date).toLocaleDateString();
+		this.returnDateObj = new Date($rootScope.city.return_date);
+		this.price = Math.round($rootScope.city.price);
+		$scope.bgUrl;
+		var req = {
+			"city" : this.city.city
+		};
+
+		if(this.city.country === "IN"){
+			req.city = "India";
+		}
+
+		$http.post('/api/getImage', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        if(data.url !== ""){
+					        $scope.bgUrl = data.url;
+					        var myEl = angular.element( document.querySelector( '#bgcontainer' ) );
+							myEl.css('background-image','url("'+data.url+'")');
+
+							var bgScope = angular.element( document.querySelector( '.ng-scope' ) );
+							bgScope.css('height','100%');
+						}
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				      });
+		this.airline = $rootScope.city.airline;
+		this.destCode = $rootScope.city.destination;
+		this.deptCode = $rootScope.city.departingCode;
+
+		req.city = $rootScope.city.city;
+		req.startDate = new Date($rootScope.city.departure_date);
+		req.endDate = new Date($rootScope.city.return_date);
+		$scope.itinerary;
+		$http.post('/api/itinerary/generate', req).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.itinerary = data;
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(req);
+				      });
+		this.getDay = function(date){
+			if(req.startDate.getDate() - new Date(date).getDate() + 1 > this.currentDay)
+				this.currentDay++;
+			return (req.startDate.getDate() - new Date(date).getDate() + 1);
+		};
+		this.getDateObj = function(date){
+			return new Date(date);
+		};
+		this.checkDay = function(date){
+			if(date>this.currentDay){
+				this.currentDay+=1;
+				return 1;
+			} else{
+				return 0;
+			}
+		};
+
+		this.getTime = function(time){
+			var date = new Date(time);
+		    var localeSpecificTime = date.toLocaleTimeString();
+		    return localeSpecificTime.replace(/:\d+ /, ' ');		
+		};
+
+		this.incDay = function(){
+			this.currentDay++;
+		};
+
+		this.currentDay = 0;
+
+		/*var hotelReq = {
+			"lat": $rootScope.details[3],
+			"lng": $rootScope.details[4],
+			"check_in": req.startDate.toISOString().substring(0, 10),
+			"check_out": req.endDate.toISOString().substring(0, 10)
+		};*/
+
+		$http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&address='+req.city)
+		.success(function(data, status, headers, config) {
+	        // this callback will be called asynchronously
+	        // when the response is available
+	        				        console.log(data);
+		var hotelReq = {
+			"lat": data.results[0].geometry.location.lat,
+			"lng": data.results[0].geometry.location.lng,
+			"check_in": req.startDate.toISOString().substring(0, 10),
+			"check_out": req.endDate.toISOString().substring(0, 10)
+		};
+
+	        		$http.post('/api/sendHotels', hotelReq).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.hotels = data.results;
+				        console.log(hotelReq);
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(hotelReq);
+				      });
+	      }).
+	      error(function(data, status, headers, config) {
+	        	console.log(data);
+	      });
+/*
+		$http.post('/api/sendHotels', hotelReq).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.hotels = data.results;
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(hotelReq);
+				      });*/
+	})
+
 
 	.directive('googleplace', [ function() {
     return {
@@ -72,7 +290,7 @@
                 addressComponents.push(latitude, longitude);
 
                 scope.$apply(function() {
-                    scope.details = addressComponents; // array containing each location component
+                    scope.$root.details = addressComponents; // array containing each location component
                     model.$setViewValue(element.val());
                 });
             });
@@ -80,5 +298,4 @@
     };
 	}]);
 	
-
 })();
