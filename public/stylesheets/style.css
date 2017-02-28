@@ -150,7 +150,12 @@ input[google-place]:-ms-input-placeholder {
 }
 
 .hotel_details{
-	max-height: 40%;
+	max-height: 45%;
 	overflow: scroll;
+}
+
+.recommended{ 
+  border: dashed rgb(3,169,244); 
+  margin-top: 1em; 
 }
 
