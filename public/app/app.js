@@ -201,12 +201,42 @@
 
 		this.currentDay = 0;
 
-		var hotelReq = {
+		/*var hotelReq = {
 			"lat": $rootScope.details[3],
 			"lng": $rootScope.details[4],
 			"check_in": req.startDate.toISOString().substring(0, 10),
 			"check_out": req.endDate.toISOString().substring(0, 10)
+		};*/
+
+		$http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-O7rvgYc5L9tMc8btx-Z4UJ_ZYfp6GzU&address='+req.city)
+		.success(function(data, status, headers, config) {
+	        // this callback will be called asynchronously
+	        // when the response is available
+	        				        console.log(data);
+		var hotelReq = {
+			"lat": data.results[0].geometry.location.lat,
+			"lng": data.results[0].geometry.location.lng,
+			"check_in": req.startDate.toISOString().substring(0, 10),
+			"check_out": req.endDate.toISOString().substring(0, 10)
 		};
+
+	        		$http.post('/api/sendHotels', hotelReq).
+				    success(function(data, status, headers, config) {
+				        // this callback will be called asynchronously
+				        // when the response is available
+				        $scope.hotels = data.results;
+				        console.log(hotelReq);
+				        console.log(data);
+				      }).
+				      error(function(data, status, headers, config) {
+				        	console.log(data);
+				        	console.log(hotelReq);
+				      });
+	      }).
+	      error(function(data, status, headers, config) {
+	        	console.log(data);
+	      });
+/*
 		$http.post('/api/sendHotels', hotelReq).
 				    success(function(data, status, headers, config) {
 				        // this callback will be called asynchronously
@@ -217,7 +247,7 @@
 				      error(function(data, status, headers, config) {
 				        	console.log(data);
 				        	console.log(hotelReq);
-				      });
+				      });*/
 	})
 
 

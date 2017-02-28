@@ -63,10 +63,11 @@
 							<p>Phone:(415) 989-3500</p>
                         </div>
                     </div>-->
-                    <div  layout="column" layout-align="center center" ng-repeat="hotel in hotels">
+                    <div  layout="column" layout-align="center center" ng-repeat="hotel in hotels"  ng-class="hotel.recommended ? 'recommended' : ''">
                         <!--<div flex="35" style="background-image: url(https://lh3.googleusercontent.com/proxy/A5oGF8Ja8KY7pA-QP0ojPHawVmvfLw-DrCc5g7ntZMaLxrNR3lTwtjKN5S04CMpRcuOVz7U0kwoEMuqUn1uCKfTLMXQdV8XFnw7MVjpeb_Xi4NRJliwAjRststrLvUSI46n4rtoAMHPsS9c1jqo0G_Au-mXPIQ=w203-h167); height: 150px; background-size: cover;">
                         </div>-->
                             <h2>{{hotel.property_name}}</h2>
+                            <div ng-show="hotel.recommended"><p style="font-size: 0.7em; color: rgb(3,169,244); margin: -10px;">(Recommended)</p></div> 
                             <p>{{hotel.address.line1}}, {{hotel.address.city}}, {{hotel.address.region}}</p>
                             <p>Price per night: ${{hotel.min_daily_rate.amount}} | Total price: ${{hotel.total_price.amount}}</p>
 							<p>Phone:{{hotel.contacts[0].detail}}</p>
